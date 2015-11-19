@@ -42,22 +42,21 @@ module.exports.start = function start(callback) {
 
         // Start the app by listening on <port>
         app.listen(3000, function () {
+            // Logging initialization
+            console.log('--');
+            console.log(chalk.green(config.app.title));
+            console.log(chalk.green('Environment:\t\t\t' + process.env.NODE_ENV));
+            console.log(chalk.green('Port:\t\t\t\t' + config.port));
+            console.log(chalk.green('Database:\t\t\t\t' + config.db.uri));
+            if (process.env.NODE_ENV === 'secure') {
+                console.log(chalk.green('HTTPs:\t\t\t\ton'));
+            }
+            console.log(chalk.green('App version:\t\t\t' + config.meanjs.version));
+            if (config.meanjs['meanjs-version'])
+                console.log(chalk.green('MEAN.JS version:\t\t\t' + config.meanjs['meanjs-version']));
+            console.log('--');
 
-            //// Logging initialization
-            //console.log('--');
-            //console.log(chalk.green(config.app.title));
-            //console.log(chalk.green('Environment:\t\t\t' + process.env.NODE_ENV));
-            //console.log(chalk.green('Port:\t\t\t\t' + config.port));
-            //console.log(chalk.green('Database:\t\t\t\t' + config.db.uri));
-            //if (process.env.NODE_ENV === 'secure') {
-            //    console.log(chalk.green('HTTPs:\t\t\t\ton'));
-            //}
-            //console.log(chalk.green('App version:\t\t\t' + config.meanjs.version));
-            //if (config.meanjs['meanjs-version'])
-            //    console.log(chalk.green('MEAN.JS version:\t\t\t' + config.meanjs['meanjs-version']));
-            //console.log('--');
-            //
-            //if (callback) callback(app, db, config);
+            if (callback) callback(app, db, config);
         });
 
     });

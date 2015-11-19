@@ -54,9 +54,6 @@ var initGlobalConfigFolders = function (config, assets) {
     };
 
     // Setting globbed client paths
-    //console.log("+++++++++++++++++++")
-    //console.log(process);
-    //console.log(process.cwd());
     config.folders.client = getGlobbedPaths(path.join(process.cwd(), 'modules/*/client/'), process.cwd().replace(new RegExp(/\\/g), '/'));
 };
 
@@ -105,6 +102,23 @@ var initGlobalConfig = function () {
 
     // Get the default assets
     var defaultAssets = require(path.join(process.cwd(), 'config/assets/default'));
+    var assets = defaultAssets;
+
+    // Get the default config
+    var defaultConfig = require(path.join(process.cwd(), 'config/env/default'));
+    var developmentConfig = require(path.join(process.cwd(), 'config/env/development'));
+    var config = _.merge(defaultConfig, developmentConfig);
+    //console.log(config);
+
+    // read package.json for MEAN.JS project information
+    var pkg = require(path.resolve('./package.json'));
+    config.meanjs = pkg;
+
+    // Initialize global globbed files
+    initGlobalConfigFiles(config, assets);
+
+    // Initialize global globbed folders
+    initGlobalConfigFolders(config, assets);
 
     //// Get the current assets
     //var environmentAssets = require(path.join(process.cwd(), 'config/assets/', process.env.NODE_ENV)) || {};
