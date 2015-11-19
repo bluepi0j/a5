@@ -103,9 +103,6 @@ module.exports.initModulesClientRoutes = function (app) {
     app.use('/', express.static(path.resolve('./public')));
     // Globbing static routing
     config.folders.client.forEach(function (staticPath) {
-        console.log("-------------------------------------");
-        console.log(staticPath);
-        console.log(path.resolve('./' + staticPath));
         app.use(staticPath, express.static(path.resolve('./' + staticPath)));
     });
 };
@@ -125,7 +122,10 @@ module.exports.initModulesServerPolicies = function (app) {
  */
 module.exports.initModulesServerRoutes = function (app) {
     // Globbing routing files
+    console.log(config.files.server);
     config.files.server.routes.forEach(function (routePath) {
+        console.log("-------------------------------------");
+        console.log(path.resolve(routePath));
         require(path.resolve(routePath))(app);
     });
 };
@@ -157,6 +157,7 @@ module.exports.init = function (db) {
     this.initMiddleware(app);
     this.initViewEngine(app);
     this.initModulesClientRoutes(app);
+    this.initModulesServerRoutes(app);
     this.initModulesServerPolicies(app);
     this.initErrorRoutes(app);
     return app;
