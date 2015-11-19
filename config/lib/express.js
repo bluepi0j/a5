@@ -153,7 +153,7 @@ module.exports.initErrorRoutes = function (app) {
 module.exports.init = function (db) {
     // Initialize express app
     var app = express();
-
+    this.initLocalVariables(app);
     this.initMiddleware(app);
     this.initViewEngine(app);
     this.initModulesClientRoutes(app);
