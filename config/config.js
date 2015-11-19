@@ -66,7 +66,6 @@ var initGlobalConfigFiles = function (config, assets) {
         server: {},
         client: {}
     };
-    //console.log(assets);
     // Setting Globbed model files
     config.files.server.models = getGlobbedPaths(assets.server.models);
 
@@ -84,9 +83,14 @@ var initGlobalConfigFiles = function (config, assets) {
 
     // Setting Globbed js files
     config.files.client.js = getGlobbedPaths(assets.client.lib.js, 'public/').concat(getGlobbedPaths(assets.client.js, ['public/']));
+    //console.log(assets.client.js);
+    //console.log(getGlobbedPaths(assets.client.js, ['node_modules/']));
+    //config.files.client.js = getGlobbedPaths(assets.client.js, ['node_modules/']).concat(assets.client.lib.js);
+    //console.log(config.files.client.js);
 
     // Setting Globbed css files
     config.files.client.css = getGlobbedPaths(assets.client.lib.css, 'public/').concat(getGlobbedPaths(assets.client.css, ['public/']));
+    //config.files.client.css = getGlobbedPaths(assets.client.css, ['node_modules/']).concat(assets.client.lib.css);
 
     // Setting Globbed test files
     config.files.client.tests = getGlobbedPaths(assets.client.tests);
@@ -107,7 +111,6 @@ var initGlobalConfig = function () {
     var defaultConfig = require(path.join(process.cwd(), 'config/env/default'));
     var developmentConfig = require(path.join(process.cwd(), 'config/env/development'));
     var config = _.merge(defaultConfig, developmentConfig);
-    //console.log(config);
 
     // read package.json for MEAN.JS project information
     var pkg = require(path.resolve('./package.json'));

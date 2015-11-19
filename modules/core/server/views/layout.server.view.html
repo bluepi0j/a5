@@ -35,29 +35,29 @@
   {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
 </head>
 
-<body class="ng-cloak">
+<body ng-app="">
   <header ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
-  <section class="content">
-    <section class="container">
-      {% block content %}{% endblock %}
-    </section>
-  </section>
+  <!--<section class="content">-->
+    <!--<section class="container">-->
+      <!--{% block content %}{% endblock %}-->
+    <!--</section>-->
+  <!--</section>-->
 
   <!--Embedding The User Object-->
-  <script type="text/javascript">
-    var user = {{ user | json | safe }};
-  </script>
+  <!--<script type="text/javascript">-->
+    <!--var user = {{ user | json | safe }};-->
+  <!--</script>-->
 
   <!--Load The Socket.io File-->
   <!--<script type="text/javascript" src="/socket.io/socket.io.js"></script>-->
 
   <!--Application JavaScript Files-->
   {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
-
-  {% if livereload %}
+  <!--<script type="text/javascript" src="../../../../node_modules/angular/angular.js"></script>-->
+  <!--{% if livereload %}-->
   <!--Livereload script rendered -->
-  <script type="text/javascript" src="{{host}}:35729/livereload.js"></script>
-  {% endif %}
+  <!--<script type="text/javascript" src="{{host}}:35729/livereload.js"></script>-->
+  <!--{% endif %}-->
 </body>
 
 </html>
