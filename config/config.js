@@ -84,7 +84,7 @@ var initGlobalConfigFiles = function (config, assets) {
     // Setting Globbed js files
     config.files.client.js = getGlobbedPaths(assets.client.lib.js, 'public/').concat(getGlobbedPaths(assets.client.js, ['public/']));
     //console.log(assets.client.js);
-    //console.log(getGlobbedPaths(assets.client.js, ['node_modules/']));
+    //console.log(getGlobbedPaths(assets.client.js, ['public/']));
     //config.files.client.js = getGlobbedPaths(assets.client.js, ['node_modules/']).concat(assets.client.lib.js);
     //console.log(config.files.client.js);
 
@@ -159,11 +159,11 @@ var initGlobalConfig = function () {
     //// Validate session secret
     //validateSessionSecret(config);
     //
-    //// Expose configuration utilities
-    //config.utils = {
-    //    getGlobbedPaths: getGlobbedPaths,
-    //    validateSessionSecret: validateSessionSecret
-    //};
+    // Expose configuration utilities
+    config.utils = {
+        getGlobbedPaths: getGlobbedPaths,
+        //validateSessionSecret: validateSessionSecret
+    };
 
     return config;
 };
