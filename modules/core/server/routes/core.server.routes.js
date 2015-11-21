@@ -5,7 +5,6 @@
 module.exports = function (app) {
     // Root routing
     var core = require('../controllers/core.server.controller');
-    console.log(core);
     // Define error pages
     app.route('/server-error').get(core.renderServerError);
 

@@ -117,6 +117,8 @@ UserSchema.pre('save', function (next) {
  */
 UserSchema.pre('validate', function (next) {
   if (this.provider === 'local' && this.password && this.isModified('password')) {
+    console.log("-------------------------");
+    console.log(this.password);
     var result = owasp.test(this.password);
     if (result.errors.length) {
       var error = result.errors.join(' ');
