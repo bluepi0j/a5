@@ -6,6 +6,8 @@ var express = require('express'),
     morgan = require('morgan'),
     cookieParser = require('cookie-parser'),
     consolidate = require('consolidate'),
+    session = require('express-session'),
+    MongoStore = require('connect-mongo')(session),
 //methodOverride = require('method-override'),
     bodyParser = require('body-parser');
 
@@ -95,6 +97,29 @@ module.exports.initViewEngine = function (app) {
     app.set('views', './');
 };
 
+
+/**
+ * Configure Express session
+ */
+module.exports.initSession = function (app, db) {
+    // Express MongoDB session storage
+    app.use(session({
+        saveUninitialized: true,
+        resave: true,
+        secret: config.sessionSecret,
+        cookie: {
+            maxAge: config.sessionCookie.maxAge,
+            httpOnly: config.sessionCookie.httpOnly,
+            secure: config.sessionCookie.secure && config.secure.ssl
+        },
+        key: config.sessionKey,
+        store: new MongoStore({
+            mongooseConnection: db.connection,
+            collection: config.sessionCollection
+        })
+    }));
+};
+
 /**
  * Configure the modules static routes
  */
@@ -144,6 +169,16 @@ module.exports.initErrorRoutes = function (app) {
         res.redirect('/server-error');
     });
 };
+
+/**
+ * Invoke modules server configuration
+ */
+module.exports.initModulesConfiguration = function (app, db) {
+    config.files.server.configs.forEach(function (configPath) {
+        require(path.resolve(configPath))(app, db);
+    });
+};
+
 /**
  * Initialize the Express application
  */
@@ -153,6 +188,8 @@ module.exports.init = function (db) {
     this.initLocalVariables(app);
     this.initMiddleware(app);
     this.initViewEngine(app);
+    this.initSession(app, db);
+    this.initModulesConfiguration(app);
     this.initModulesClientRoutes(app);
     this.initModulesServerRoutes(app);
     this.initModulesServerPolicies(app);

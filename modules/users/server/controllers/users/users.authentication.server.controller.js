@@ -31,7 +31,6 @@ exports.signup = function (req, res) {
   user.displayName = user.firstName + ' ' + user.lastName;
   // Then save the user
   user.save(function (err) {
-    console.log(err);
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

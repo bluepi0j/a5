@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'PasswordValidator',
-  function ($scope, $state, $http, $location, $window, Authentication, PasswordValidator) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window',
+  'Authentication', 'PasswordValidator', 'AuthenticationService',
+  function ($scope, $state, $http, $location, $window, Authentication, PasswordValidator, AuthenticationService) {
     $scope.authentication = Authentication;
     $scope.popoverMsg = PasswordValidator.getPopoverMsg();
 
@@ -22,8 +23,9 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         return false;
       }
 
-      $http.post('/api/auth/signup', $scope.credentials).success(function (response) {
+      AuthenticationService.signup($scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
+        console.log(response);
         $scope.authentication.user = response;
 
         // And redirect to the previous or home page
@@ -42,7 +44,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         return false;
       }
 
-      $http.post('/api/auth/signin', $scope.credentials).success(function (response) {
+      AuthenticationService.signin($scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
         $scope.authentication.user = response;
 
