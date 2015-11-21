@@ -8,6 +8,7 @@ var express = require('express'),
     consolidate = require('consolidate'),
     session = require('express-session'),
     MongoStore = require('connect-mongo')(session),
+    flash = require('connect-flash'),
 //methodOverride = require('method-override'),
     bodyParser = require('body-parser');
 
@@ -82,7 +83,7 @@ module.exports.initMiddleware = function (app) {
 
     // Add the cookie parser and flash middleware
     app.use(cookieParser());
-    //app.use(flash());
+    app.use(flash());
 };
 
 /**
