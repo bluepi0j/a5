@@ -33,5 +33,13 @@ angular.module('users').service('AuthenticationService', function($http) {
     });
   }
 
+  service.changePassword = function(data) {
+    return $http({
+      url: service.url + '/api/users/password',
+      method: 'POST',
+      data: JSON.stringify(data)
+    })
+  }
+
   return service;
 })
