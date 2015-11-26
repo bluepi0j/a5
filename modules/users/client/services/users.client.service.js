@@ -76,5 +76,13 @@ angular.module('users.admin').service('AdminService', function($http) {
             data: JSON.stringify(data)
         })
     }
+
+    service.changePassword = function(userID, data) {
+        return $http({
+            url: service.url + '/api/users/password/' + userID,
+            method: 'POST',
+            data: JSON.stringify(data)
+        })
+    }
     return service;
 })

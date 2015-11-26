@@ -1,11 +1,13 @@
 'use strict';
 
 angular.module('users.admin').controller('UserController', ['$scope', '$state', 'Authentication', 'userResolve',
-    'FileUploader', 'AdminService', '$timeout', '$window',
-    function ($scope, $state, Authentication, userResolve, FileUploader, AdminService, $timeout, $window) {
+    'FileUploader', 'AdminService', '$timeout', '$window','PasswordValidator',
+    function ($scope, $state, Authentication, userResolve, FileUploader, AdminService, $timeout, $window, PasswordValidator) {
         $scope.authentication = Authentication;
+        $scope.popoverMsg = PasswordValidator.getPopoverMsg();
         $scope.user = userResolve.data;
-        $scope.imageURL = $scope.user.profileImageURL
+        $scope.isAdmin = undefined;
+        $scope.imageURL = $scope.user.profileImageURL;
         $scope.uploader = new FileUploader({
             url: 'api/users/picture/' + $scope.user._id,
             alias: 'newProfilePicture',
@@ -14,6 +16,17 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
                 item.formData.push({user: JSON.stringify($scope.user)});
             }
         });
+
+
+        $scope.ifadmin = function () {
+            if ($scope.user.roles.length == 2) {
+                $scope.isAdmin = true;
+            } else {
+                $scope.isAdmin = false;
+            }
+        };
+
+        $scope.ifadmin();
 
         // Set file uploader image filter
         $scope.uploader.filters.push({
@@ -63,13 +76,13 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
             $scope.cancelUpload();
 
             // Show error message
-            $scope.error = response.message;
+            $scope.picerror = response.message;
         };
 
         // Change user profile picture
         $scope.uploadProfilePicture = function () {
             // Clear messages
-            $scope.success = $scope.error = null;
+            $scope.success = $scope.picerror = null;
 
             // Start upload
             $scope.uploader.uploadAll();
@@ -80,6 +93,7 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
             $scope.uploader.clearQueue();
             $scope.imageURL = $scope.user.profileImageURL;
         };
+
 
         $scope.remove = function (user) {
             console.log(user);
@@ -99,6 +113,10 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
             }
         };
 
+        $scope.changeAdmin = function() {
+            $scope.isAdmin = !$scope.isAdmin;
+        }
+
         $scope.update = function (isValid) {
             if (!isValid) {
                 $scope.$broadcast('show-errors-check-validity', 'userForm');
@@ -107,12 +125,28 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
             }
 
             var user = $scope.user;
-            AdminService.updateUser(user._id, user).success(function(a, b) {
+
+            console.log($scope.isAdmin);
+            if ($scope.user.roles.length != 3) {
+
+                if ($scope.isAdmin) {
+
+                    if (user.roles.length == 1) {
+                        user.roles = ["user", "admin"];
+                    }
+                } else {
+                    if (user.roles.length == 2) {
+                        user.roles = ["user"];
+                    }
+                }
+            }
+
+            AdminService.updateUser(user._id, user).success(function (a, b) {
                 $state.go('admin.user', {
                     userId: user._id
                 });
-            }).error(function(errorResponse) {
-                $scope.error = errorResponse.data.message;
+            }).error(function (errorResponse) {
+                $scope.infoerror = errorResponse.data.message;
             })
 
         };
@@ -120,5 +154,26 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
         $scope.cancelBack = function () {
             $window.history.back();
         }
+
+        // Change user password
+        $scope.changeUserPassword = function (isValid) {
+            $scope.success = $scope.passworderror = null;
+
+            if (!isValid) {
+                $scope.$broadcast('show-errors-check-validity', 'passwordForm');
+
+                return false;
+            }
+            var data = {passwordDetails: $scope.passwordDetails, user: $scope.user};
+
+            AdminService.changePassword($scope.user._id, data).success(function (response) {
+                // If successful show success message and clear form
+                $scope.$broadcast('show-errors-reset', 'passwordForm');
+                $scope.success = true;
+                $scope.passwordDetails = null;
+            }).error(function (response) {
+                $scope.passworderror = response.message;
+            });
+        };
     }
 ]);

@@ -23,6 +23,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/users/picture/:userId',
       permissions: '*'
+    }, {
+      resources: '/api/users/password/:userId',
+      permissions: '*'
     }]
   }, {
     roles: ['superAdmin'],
@@ -34,6 +37,9 @@ exports.invokeRolesPolicies = function () {
       permissions: '*'
     }, {
       resources: '/api/users/picture/:userId',
+      permissions: '*'
+    }, {
+      resources: '/api/users/password/:userId',
       permissions: '*'
     }]
   }]);

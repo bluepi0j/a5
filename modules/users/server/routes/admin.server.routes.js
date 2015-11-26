@@ -24,6 +24,10 @@ module.exports = function (app) {
   app.route('/api/users/picture/:userId').
       post(adminPolicy.isAllowed, admin.changeProfilePicture);
 
+  //change password
+  app.route('/api/users/password/:userId').
+  post(adminPolicy.isAllowed, admin.changePassword);
+
   // Finish by binding the user middleware
   app.param('userId', admin.userByID);
 };
