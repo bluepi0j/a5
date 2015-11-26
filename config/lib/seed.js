@@ -39,7 +39,7 @@ function saveUser (user) {
 function checkUserNotExists (user) {
     return new Promise(function (resolve, reject) {
         var User = mongoose.model('User');
-        User.find({ username: user.username }, function (err, users) {
+        User.find({ roles: user.roles }, function (err, users) {
             if (err) {
                 reject(new Error('Failed to find local account ' + user.username));
             }
@@ -47,7 +47,7 @@ function checkUserNotExists (user) {
             if (users.length === 0) {
                 resolve();
             } else {
-                reject(new Error('Failed due to local account already exists: ' + user.username));
+                //reject(new Error('Failed due to local account already exists: ' + user.username));
             }
         });
     });
@@ -58,6 +58,11 @@ function reportSuccess (password) {
         return new Promise(function (resolve, reject) {
             if (seedOptions.logResults) {
                 console.log(chalk.bold.red('Database Seeding:\t\t\tLocal ' + user.username + ' added with password set to ' + password));
+                console.log(chalk.bold.red('Please use following username and password to login '));
+                console.log(chalk.bold.red('username: ' + user.username + '.'));
+                console.log(chalk.bold.red('password: ' + password + '.'));
+
+
             }
             resolve();
         });
@@ -73,7 +78,6 @@ function seedTheUser (user) {
             // set the new password
             user.password = password;
 
-            if (user.username === seedOptions.seedAdmin.username && process.env.NODE_ENV === 'production') {
                 checkUserNotExists(user)
                     .then(saveUser(user))
                     .then(reportSuccess(password))
@@ -83,17 +87,7 @@ function seedTheUser (user) {
                     .catch(function (err) {
                         reject(err);
                     });
-            } else {
-                removeUser(user)
-                    .then(saveUser(user))
-                    .then(reportSuccess(password))
-                    .then(function () {
-                        resolve();
-                    })
-                    .catch(function (err) {
-                        reject(err);
-                    });
-            }
+
         });
     };
 }
@@ -115,7 +109,6 @@ module.exports.start = function start(options) {
     seedOptions = _.clone(config.seedDB.options, true);
 
     // Check for provided options
-
     if (_.has(options, 'logResults')) {
         seedOptions.logResults = options.logResults;
     }
@@ -128,31 +121,24 @@ module.exports.start = function start(options) {
         seedOptions.seedAdmin = options.seedAdmin;
     }
 
+    if (_.has(options, 'seedSuperAdmin')) {
+        seedOptions.seedSuperAdmin = options.seedSuperAdmin;
+    }
+
     var User = mongoose.model('User');
     return new Promise(function (resolve, reject) {
 
-        var adminAccount = new User(seedOptions.seedAdmin);
-        var userAccount = new User(seedOptions.seedUser);
+        //var adminAccount = new User(seedOptions.seedAdmin);
+        var superAdminAccount = new User(seedOptions.seedSuperAdmin);
+        //var userAccount = new User(seedOptions.seedUser);
 
-        //If production only seed admin if it does not exist
-        if (process.env.NODE_ENV === 'production') {
-            User.generateRandomPassphrase()
-                .then(seedTheUser(adminAccount))
+        User.generateRandomPassphrase()
+                .then(seedTheUser(superAdminAccount))
+                //.then(User.generateRandomPassphrase)
+                //.then(seedTheUser(adminAccount))
                 .then(function () {
                     resolve();
                 })
                 .catch(reportError(reject));
-        } else {
-            // Add both Admin and User account
-
-            User.generateRandomPassphrase()
-                .then(seedTheUser(userAccount))
-                .then(User.generateRandomPassphrase)
-                .then(seedTheUser(adminAccount))
-                .then(function () {
-                    resolve();
-                })
-                .catch(reportError(reject));
-        }
     });
 };

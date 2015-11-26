@@ -80,11 +80,11 @@ module.exports = {
     },
     livereload: true,
     seedDB: {
-        seed: process.env.MONGO_SEED === 'true' ? true : false,
+        seed: true,
         options: {
             logResults: process.env.MONGO_SEED_LOG_RESULTS === 'false' ? false : true,
             seedUser: {
-                username: process.env.MONGO_SEED_USER_USERNAME || 'user',
+                username: 'user',
                 provider: 'local',
                 email: process.env.MONGO_SEED_USER_EMAIL || 'user@localhost.com',
                 firstName: 'User',
@@ -93,13 +93,22 @@ module.exports = {
                 roles: ['user']
             },
             seedAdmin: {
-                username: process.env.MONGO_SEED_ADMIN_USERNAME || 'admin',
+                username: 'admin',
                 provider: 'local',
-                email: process.env.MONGO_SEED_ADMIN_EMAIL || 'admin@localhost.com',
+                email: 'admin@localhost.com',
                 firstName: 'Admin',
                 lastName: 'Local',
                 displayName: 'Admin Local',
                 roles: ['user', 'admin']
+            },
+            seedSuperAdmin: {
+                username: 'superAdmin',
+                provider: 'local',
+                email: process.env.MONGO_SEED_ADMIN_EMAIL || 'superAdmin@localhost.com',
+                firstName: 'superAdmin',
+                lastName: 'Local',
+                displayName: 'superAdmin Local',
+                roles: ['user', 'admin', 'superAdmin']
             }
         }
     }
