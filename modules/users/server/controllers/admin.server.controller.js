@@ -6,6 +6,8 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
+    multer = require('multer'),
+    config = require(path.resolve('./config/config')),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
@@ -14,6 +16,51 @@ var path = require('path'),
 exports.read = function (req, res) {
   res.json(req.model);
 };
+
+exports.changeProfilePicture = function (req, res) {
+  var user = req.user;
+  var message = null;
+  var upload = multer(config.uploads.profileUpload).single('newProfilePicture');
+  var profileUploadFileFilter = require(path.resolve('./config/lib/multer')).profileUploadFileFilter;
+
+  // Filtering to upload only images
+  upload.fileFilter = profileUploadFileFilter;
+
+  if (user) {
+    upload(req, res, function (uploadError) {
+      console.log(req.model);
+      var updateduser = req.model;
+      if(uploadError) {
+        return res.status(400).send({
+          message: 'Error occurred while uploading profile picture'
+        });
+      } else {
+        updateduser.profileImageURL = config.uploads.profileUpload.dest + req.file.filename;
+
+        updateduser.save(function (saveError) {
+          if (saveError) {
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(saveError)
+            });
+          } else {
+            req.login(user, function (err) {
+              if (err) {
+                res.status(400).send(err);
+              } else {
+                res.json(updateduser);
+              }
+            });
+          }
+        });
+      }
+    });
+  } else {
+    res.status(400).send({
+      message: 'User is not signed in'
+    });
+  }
+};
+
 
 /**
  * Update a User
