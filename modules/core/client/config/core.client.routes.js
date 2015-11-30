@@ -1,8 +1,10 @@
 'use strict';
 
 // Setting up route
-angular.module('core').config(['$stateProvider', '$urlRouterProvider',
-  function ($stateProvider, $urlRouterProvider) {
+angular.module('core').config(['$stateProvider', '$urlRouterProvider', '$windowProvider',
+  function ($stateProvider, $urlRouterProvider, $windowProvider) {
+
+    var $window = $windowProvider.$get();
 
     // Redirect to 404 when route not found
     $urlRouterProvider.otherwise(function ($injector, $location) {
@@ -11,32 +13,64 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       });
     });
 
+  if ($window.user) {
     // Home state routing
     $stateProvider
-    .state('home', {
-      url: '/',
-      templateUrl: 'modules/core/client/views/home.client.view.html'
-    })
-    .state('not-found', {
-      url: '/not-found',
-      templateUrl: 'modules/core/client/views/404.client.view.html',
-      data: {
-        ignoreState: true
-      }
-    })
-    .state('bad-request', {
-      url: '/bad-request',
-      templateUrl: 'modules/core/client/views/400.client.view.html',
-      data: {
-        ignoreState: true
-      }
-    })
-    .state('forbidden', {
-      url: '/forbidden',
-      templateUrl: 'modules/core/client/views/403.client.view.html',
-      data: {
-        ignoreState: true
-      }
-    });
+        .state('home', {
+          url: '/',
+          templateUrl: 'modules/core/client/views/home.login.client.view.html'
+        })
+        .state('not-found', {
+          url: '/not-found',
+          templateUrl: 'modules/core/client/views/404.client.view.html',
+          data: {
+            ignoreState: true
+          }
+        })
+        .state('bad-request', {
+          url: '/bad-request',
+          templateUrl: 'modules/core/client/views/400.client.view.html',
+          data: {
+            ignoreState: true
+          }
+        })
+        .state('forbidden', {
+          url: '/forbidden',
+          templateUrl: 'modules/core/client/views/403.client.view.html',
+          data: {
+            ignoreState: true
+          }
+        });
+  } else {
+    // Home state routing
+    $stateProvider
+        .state('home', {
+          url: '/',
+          templateUrl: 'modules/core/client/views/home.client.view.html'
+        })
+        .state('not-found', {
+          url: '/not-found',
+          templateUrl: 'modules/core/client/views/404.client.view.html',
+          data: {
+            ignoreState: true
+          }
+        })
+        .state('bad-request', {
+          url: '/bad-request',
+          templateUrl: 'modules/core/client/views/400.client.view.html',
+          data: {
+            ignoreState: true
+          }
+        })
+        .state('forbidden', {
+          url: '/forbidden',
+          templateUrl: 'modules/core/client/views/403.client.view.html',
+          data: {
+            ignoreState: true
+          }
+        });
+  }
+
+
   }
 ]);

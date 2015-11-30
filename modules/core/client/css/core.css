@@ -35,3 +35,22 @@ a:hover .header-profile-image {
 .has-error .help-inline.error-text {
   display: inline;
 }
+
+/*WaterFall*/
+*{box-sizing: border-box;}
+.flowGrid:before,.flowGrid:after{
+  content: "";
+  display: table;
+}
+.flowGrid:after{
+  clear:both;
+}
+.flowGridItem{ margin-bottom:10px;}
+.flowGridItem img{width:100%;}
+.flowGridColumn{
+  float: left;
+  padding-left: 10px;
+}
+.flowGridColumn:last-of-type{
+  padding-right: 10px;
+}

@@ -4,7 +4,8 @@
 var ApplicationConfiguration = (function () {
   // Init module configuration options
   var applicationModuleName = 'a4';
-  var applicationModuleVendorDependencies = ['ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'angularFileUpload'];
+  var applicationModuleVendorDependencies = ['ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap',
+    'angularFileUpload', 'ngFlowGrid'];
 
   // Add a new vertical module
   var registerModule = function (moduleName, dependencies) {
