@@ -19,12 +19,20 @@ var UserSchema = new Schema({
     author: {
         type: String
     },
+    authorID:{
+        type: ObjectId
+    },
     sketchImageURL: {
         type:String
     },
     created: {
         type: Date,
         default: Date.now
+    },
+    comments: [],
+    newcomment: {
+        type: Boolean,
+        default: false
     }
 });
 
