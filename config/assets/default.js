@@ -16,10 +16,10 @@ module.exports = {
                 'public/lib/angular-messages/angular-messages.js',
                 'public/lib/angular-ui-router/release/angular-ui-router.js',
                 //'public/lib/angular-ui-utils/ui-utils.js',
-                'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
+                'public/lib/angular-ui-bootstrap/ui-bootstrap-tpls.js',
                 'public/lib/angular-file-upload/dist/angular-file-upload.js',
                 'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
-                'public/lib/ngFlowGrid/src/ngFlowGrid.js',
+                'public/lib/ngFlowGrid/src/ngFlowGrid.js'
             ],
             tests: ['node-modules/angular-mocks/angular-mocks.js']
         },
