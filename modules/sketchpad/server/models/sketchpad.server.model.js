@@ -20,7 +20,7 @@ var UserSchema = new Schema({
         type: String
     },
     authorID:{
-        type: ObjectId
+        type: Object
     },
     sketchImageURL: {
         type:String
