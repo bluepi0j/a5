@@ -23,7 +23,7 @@ var CommentSchema = new Schema({
         type:String
     },
     sketchID: {
-        type: ObjectId
+        type: Object
     },
     created: {
         type: Date,
