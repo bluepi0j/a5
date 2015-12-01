@@ -32,4 +32,4 @@ var CommentSchema = new Schema({
 });
 
 
-mongoose.model('Comment', UserSchema);
+mongoose.model('Comment', CommentSchema);

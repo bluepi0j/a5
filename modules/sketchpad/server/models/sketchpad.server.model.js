@@ -12,7 +12,7 @@ var mongoose = require('mongoose'),
 /**
  * Sketch Schema
  */
-var UserSchema = new Schema({
+var SketchpadSchema = new Schema({
     name: {
         type: String
     },
@@ -37,4 +37,4 @@ var UserSchema = new Schema({
 });
 
 
-mongoose.model('Sketch', UserSchema);
+mongoose.model('Sketchpad', SketchpadSchema);
