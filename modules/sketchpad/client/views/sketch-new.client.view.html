@@ -1,3 +1,7 @@
 <section ng-controller="SketchNewController">
     <h1>test</h1>
+    <div pw-canvas options="{color: model.myColor}"></div>
+    <div pw-color-selector="['#000', '#00f', '#0f0', '#f00']" color="model.myColor"></div>
+    <img id="canvasImg" alt="Right click to save me!">
+    <button ng-click="save()">test</button>
 </section>
