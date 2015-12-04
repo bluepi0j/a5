@@ -38,6 +38,12 @@ module.exports = {
             limits: {
                 fileSize: 1*1024*1024 // Max file size in bytes (1 MB)
             }
+        },
+        sketchSave: {
+            dest: './modules/sketchpad/client/img/profile/uploads/', //Sketch save destination path
+            limits: {
+                fileSize: 1*1024*1024 //Max file size
+            }
         }
     }
 };
