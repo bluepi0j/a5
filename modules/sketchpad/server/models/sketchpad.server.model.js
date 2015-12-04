@@ -13,11 +13,14 @@ var mongoose = require('mongoose'),
  * Sketch Schema
  */
 var SketchpadSchema = new Schema({
-    name: {
+    title: {
         type: String
     },
     author: {
         type: String
+    },
+    authorImageURL:{
+        type:String
     },
     authorID:{
         type: Object

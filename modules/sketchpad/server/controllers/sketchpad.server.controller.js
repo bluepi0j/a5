@@ -4,6 +4,7 @@
 'use strict';
 
 var path = require('path'),
+    fs = require('fs'),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
     mongoose = require('mongoose'),
     Sketchpad = mongoose.model('Sketchpad');
@@ -17,7 +18,7 @@ exports.showById = function (req, res) {
  * Show all
  */
 exports.showAll = function (req, res) {
-    Sketchpad.find({}).sort('-created').populate('author', 'name','sketchImageURL').exec(function (err, sketchs) {
+    Sketchpad.find({}).sort('-created').populate('author', 'title','authorImageURL','sketchImageURL').exec(function (err, sketchs) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -30,7 +31,7 @@ exports.showAll = function (req, res) {
 
 exports.save = function (req, res) {
     var user = req.user;
-    var sketchpad = new Sketchpad();
+
 
     console.log(req.body);
     var data = req.body.dataURL.replace(/^data:image\/\w+;base64,/, "");
@@ -40,6 +41,25 @@ exports.save = function (req, res) {
     fs.writeFile(config.uploads.sketchSave.dest + filename, buf, function(err){
         if(err) throw err;
         console.log('!saved!');
+        var sketchpad = new Sketchpad({
+            title:req.body.title,
+            author:user.displayName,
+            authorImageURL:user.profileImageURL,
+            sketchImageURL: config.uploads.sketchSave.dest + filename,
+            comments: [],
+            newcomment: {
+                type: Boolean,
+                default: false
+            }
+        });
+
+        sketchpad.save(function (err) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            }
+        });
 
     });
 
