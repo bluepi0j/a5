@@ -14,7 +14,7 @@ angular.module('sketch').config(['$stateProvider',
       })
       .state('sketch-comment', {
         url: '/sketch/comment',
-        templateUrl: 'modules/users/client/views/settings/edit-profile.client.view.html'
+        templateUrl: 'modules/sketchpad/client/views/sketch-comment.client.view.html'
       });
 
   }
