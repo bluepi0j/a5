@@ -12,7 +12,7 @@ var path = require('path'),
     Comment = mongoose.model('Comment');
 
 
-exports.showBySketchId = function (req, res) {
+exports.show = function (req, res) {
     var sketchId = req.sketchID;
     if (!mongoose.Types.ObjectId.isValid(sketchId)) {
         return res.status(400).send({
@@ -31,10 +31,10 @@ exports.showBySketchId = function (req, res) {
                 if (err){
                     return err;
                 }if (!comment){
-                    continue;
                     console.log('no comment found with such id!');
+                } else{
+                    result.push(comment);
                 }
-                result.push(comment);
             });
         }
         res.json(result);

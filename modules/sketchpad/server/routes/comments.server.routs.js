@@ -5,7 +5,7 @@
 
 module.exports = function (app) {
     // Sketchpad Routes
-    var sketchpad = require('../controllers/comments.server.controller');
+    var comments = require('../controllers/comments.server.controller');
 
     // Setting up the sketchpad api
     app.route('/api/comments/show/:sketchId').get(comments.show);
