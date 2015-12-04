@@ -20,7 +20,7 @@ module.exports = {
                 'public/lib/angular-file-upload/dist/angular-file-upload.js',
                 'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
                 'public/lib/ngFlowGrid/src/ngFlowGrid.js',
-                'public/lib/angular-canvas-painter/dist/angular-canvas-painter.js'
+                'public/lib/angular-canvas-painter/dist/angular-canvas-painter.js',
             ],
             tests: ['node-modules/angular-mocks/angular-mocks.js']
         },

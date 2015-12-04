@@ -17,7 +17,16 @@
         <ul class="flowGrid" id="demogrid">
             <li class="flowGridItem" ng-repeat="item in items">
                 <a href=""><img ng-src="{{item.img}}"></a>
-                <p>{{item.id}}__{{item.name}}</p>
+                <div class="sketch-footer">
+                    <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="sketch-profile-image"/>
+                    <span>username here</span>
+
+                <p class="sketch-title">{{item.id}}__{{item.name}}</p>
+                    <!--<a class="btn" ng-click="cancelBack()">-->
+                        <!--<i class="glyphicon glyphicon-comment"></i>-->
+                    <!--</a>-->
+                </div>
+
             </li>
         </ul>
 

@@ -37,7 +37,12 @@ a:hover .header-profile-image {
 }
 
 /*WaterFall*/
-.flowGrid{position: relative;padding: 0;}
+.flowGrid{
+  position: relative;
+  padding: 0;
+
+}
+
 .flowGrid:before,.flowGrid:after{
   content: "";
   display: table;
@@ -45,7 +50,12 @@ a:hover .header-profile-image {
 .flowGrid:after{
   clear:both;
 }
-.flowGridItem{ list-style: none;}
+.flowGridItem{
+  list-style: none;
+  box-shadow: 0 0 5px grey;
+  margin-top: 15px;
+}
+
 .flowGridItem img{width:100%;}
 .flowGridColumn{
   float: left;
@@ -55,48 +65,21 @@ a:hover .header-profile-image {
   padding-right: 10px;
 }
 
-/*sketchpad*/
-body {
-  background-color: #efeeee;
-}
-/*.container {*/
-  /*width: 400px;*/
-  /*margin: 100px auto 0 auto;*/
-/*}*/
-.pwCanvasPaint canvas:first-child {
-  box-shadow: 2px 2px 8px rgba(0,0,0,0.1), -1px -1px 4px rgba(0,0,0,0.1);
-  -webkit-box-shadow: 2px 2px 8px rgba(0,0,0,0.1), -1px -1px 4px rgba(0,0,0,0.1);
-}
-.pwColorSelector {
-  list-style: none;
-}
-.pwColor {
-  display: inline-block;
+.sketch-profile-image {
+  /*opacity: 0.8;*/
+  margin-top: 5px;
+  margin-left: 3px;
+  height: 40px;
+  width: 40px !important;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
   margin-right: 5px;
-  border: 2px solid transparent;
 }
-.pwColor.active {
-  transform: scale(1.1);
-  -webkit-transform: scale(1.1);
-  box-shadow: 2px 3px 2px rgba(0,0,0,0.2);
-  -webkit-box-shadow: 2px 3px 2px rgba(0,0,0,0.2);
+
+.sketch-footer {
+  height:100px;
 }
-.lineWidthSelector {
-  width: 100%;
+
+.sketch-title {
+  margin-top: 10px;
 }
-.undo {
-  margin-top: 20px;
-}
-.undo > button {
-  background-color: orange;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 4px;
-}
-.undo > button[disabled] {
-  background-color: #aaa;
-}
+

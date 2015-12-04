@@ -1,7 +1,28 @@
 <section ng-controller="SketchNewController">
-    <h1>test</h1>
-    <div pw-canvas options="{color: model.myColor}"></div>
-    <div pw-color-selector="['#000', '#00f', '#0f0', '#f00']" color="model.myColor"></div>
-    <img id="canvasImg" alt="Right click to save me!">
-    <button ng-click="save()">test</button>
+    <h1>SketchPad</h1>
+
+    <div class="container-sketch">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" class="form-control" ng-model="title"
+               placeholder="Please write the title" required>
+        <br>
+        <div pw-canvas version="version"
+             options="{undo: true, width: 400, height: 300, color: selectedColor, lineWidth: selectedLineWidth}"></div>
+        <!--<div pw-color-selector="['#000', '#00f', '#0f0', '#f00']" color="model.myColor"></div>-->
+        <img id="canvasImg">
+
+        <div pw-color-selector="['#000', '#9CB199', '#CF3759', '#485247', '#E77547', '#D38E47', '#0A6A74', '#153974']"
+             color="selectedColor"></div>
+        <p>Line Thickness</p>
+        <input type="range" min="1" max="50" ng-model="selectedLineWidth" class="lineWidthSelector">{{selectedLineWidth}}
+
+        <div class="undo">
+            <button ng-click="undo()"
+                    ng-disabled="version < 1">Undo (Version {{version}})
+            </button>
+            <button class="btn btn-primary" ng-click="save()">Save</button>
+        </div>
+    </div>
+
+
 </section>
