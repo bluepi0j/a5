@@ -27,8 +27,11 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       $state.go('sketch-create')
     }
 
-    $scope.goToComment = function() {
-      $state.go('sketch-comment')
+    $scope.goToComment = function(id) {
+      debugger
+      $state.go('sketch-comment', {
+        sketckId: id
+      });
     }
     
 
