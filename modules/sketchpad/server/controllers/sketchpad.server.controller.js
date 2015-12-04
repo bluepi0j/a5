@@ -20,7 +20,7 @@ exports.showById = function (req, res) {
  * Show all
  */
 exports.showAll = function (req, res) {
-    Sketchpad.find({}).sort('-created').populate('author', 'title','authorImageURL','sketchImageURL').exec(function (err, sketchs) {
+    Sketchpad.find().sort('-created').exec(function(err, sketchs) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -28,6 +28,7 @@ exports.showAll = function (req, res) {
         }
 
         res.json(sketchs);
+
     });
 };
 
@@ -40,7 +41,7 @@ exports.save = function (req, res) {
     var buf = new Buffer(data, 'base64');
 
     const filename = crypto.randomBytes(16).toString('hex') + Date.now();
-    console.log(filename);
+
     fs.writeFile(config.uploads.sketchSave.dest + filename, buf, function(err){
         if(err) throw err;
         var sketchpad = new Sketchpad({

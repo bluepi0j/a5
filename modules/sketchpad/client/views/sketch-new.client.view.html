@@ -20,7 +20,7 @@
             <button ng-click="undo()"
                     ng-disabled="version < 1">Undo (Version {{version}})
             </button>
-            <button class="btn btn-primary" ng-click="save()">Save</button>
+            <button class="btn btn-primary" ng-disabled="title == undefined" ng-click="save()">Save</button>
         </div>
     </div>
 

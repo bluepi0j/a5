@@ -15,13 +15,13 @@
     <div>
 
         <ul class="flowGrid" id="demogrid">
-            <li class="flowGridItem" ng-repeat="item in items">
-                <a href=""><img ng-src="{{item.img}}"></a>
+            <li class="flowGridItem" ng-repeat="sketch in sketchList">
+                <a href=""><img ng-src="{{sketch.sketchImageURL}}"></a>
                 <div class="sketch-footer">
-                    <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="sketch-profile-image"/>
-                    <span>username here</span>
+                    <img ng-src="{{sketch.authorImageURL}}" alt="{{sketch.author}}" class="sketch-profile-image"/>
+                    <span>{{sketch.author}}</span>
 
-                <p class="sketch-title">{{item.id}}__{{item.name}}</p>
+                <p class="sketch-title"><strong>Title: </strong>{{sketch.title}}</p>
                     <!--<a class="btn" ng-click="cancelBack()">-->
                         <!--<i class="glyphicon glyphicon-comment"></i>-->
                     <!--</a>-->

@@ -1,13 +1,14 @@
 'use strict';
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication','fgDelegate',"$timeout",
-  '$filter', '$state',
-  function ($scope, Authentication, fgDelegate, $timeout, $filter, $state) {
+  '$filter', '$state', 'HomeSketchService',
+  function ($scope, Authentication, fgDelegate, $timeout, $filter, $state, HomeSketchService) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
-
-
+    HomeSketchService.getAllSketchs().then(function(res) {
+      $scope.sketchList = res.data;
+    })
 
     $scope.items = [
       {
@@ -98,7 +99,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         container: document.getElementById("demogrid"), // must give a container
         itemSelector:".flowGridItem", // item's className
       })
-      console.log(flow)
     },100);
 
   }
