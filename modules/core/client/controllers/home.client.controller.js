@@ -27,6 +27,11 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       $state.go('sketch-create')
     }
 
+    $scope.goToComment = function() {
+      $state.go('sketch-comment')
+    }
+    
+
     var flow;
     /**
      * ====== important ========
