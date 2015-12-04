@@ -16,7 +16,7 @@
 
         <ul class="flowGrid" id="demogrid">
             <li class="flowGridItem" ng-repeat="sketch in sketchList">
-                <img ng-src="{{sketch.sketchImageURL}}" ng-click="goToComment()">
+                <img ng-src="{{sketch.sketchImageURL}}" ng-click="goToComment(sketch._id)">
                 <div class="sketch-footer">
                     <img ng-src="{{sketch.authorImageURL}}" alt="{{sketch.author}}" class="sketch-profile-image"/>
                     <span>{{sketch.author}}</span>
