@@ -43,38 +43,20 @@ exports.show = function (req, res) {
 };
 
 exports.save = function (req, res) {
-    var user = req.user;
-
-    //console.log(req.body);
-    var data = req.body.dataURL.replace(/^data:image\/\w+;base64,/, "");
-    var buf = new Buffer(data, 'base64');
-
-    const filename = crypto.randomBytes(16).toString('hex') + Date.now();
-
-    fs.writeFile(config.uploads.sketchSave.dest + filename, buf, function (err) {
-        if (err) throw err;
-        var sketchpad = new Sketchpad({
-            title: req.body.title,
-            author: user.displayName,
-            authorImageURL: user.profileImageURL,
-            sketchImageURL: config.uploads.sketchSave.dest + filename,
-            comments: [],
-            newcomment: {
-                type: Boolean,
-                default: false
-            }
+    var sketchId = req.sketchID;
+    if (!mongoose.Types.ObjectId.isValid(sketchId)) {
+        return res.status(400).send({
+            message: 'Sketch to comment is invalid'
         });
+    }
+    var newComment = new Comment ({
 
-        sketchpad.save(function (err) {
-            if (err) {
-                return res.status(400).send({
-                    message: errorHandler.getErrorMessage(err)
-                });
-            }
-            res.send({
-                message: 'Success'
-            });
-        });
+    });
+    Sketchpad.findById(sketchId).exec(function (err, sketch) {
+        if (err) {
+            return err;
+        }
 
+        res.send("success");
     });
 };
