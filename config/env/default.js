@@ -40,7 +40,7 @@ module.exports = {
             }
         },
         sketchSave: {
-            dest: './modules/sketchpad/client/img/profile/uploads/', //Sketch save destination path
+            dest: './modules/sketchpad/client/img/sketchs/uploads/', //Sketch save destination path
             limits: {
                 fileSize: 1*1024*1024 //Max file size
             }

@@ -7,6 +7,8 @@ var path = require('path'),
     fs = require('fs'),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
     mongoose = require('mongoose'),
+    crypto = require('crypto'),
+    config = require(path.resolve('./config/config')),
     Sketchpad = mongoose.model('Sketchpad');
 /**
  * Show all works with specified user
@@ -33,14 +35,14 @@ exports.save = function (req, res) {
     var user = req.user;
 
 
-    console.log(req.body);
+    //console.log(req.body);
     var data = req.body.dataURL.replace(/^data:image\/\w+;base64,/, "");
     var buf = new Buffer(data, 'base64');
 
-    const filename = crypto.randomBytes(16) + Date.now();
+    const filename = crypto.randomBytes(16).toString('hex') + Date.now();
+    console.log(filename);
     fs.writeFile(config.uploads.sketchSave.dest + filename, buf, function(err){
         if(err) throw err;
-        console.log('!saved!');
         var sketchpad = new Sketchpad({
             title:req.body.title,
             author:user.displayName,
@@ -59,6 +61,9 @@ exports.save = function (req, res) {
                     message: errorHandler.getErrorMessage(err)
                 });
             }
+            res.send({
+                message: 'Success'
+            });
         });
 
     });
