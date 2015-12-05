@@ -27,6 +27,32 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       $state.go('sketch-create')
     }
 
+    $scope.goToComment = function(id) {
+      $state.go('sketch-comment', {
+        sketckId: id
+      });
+    }
+
+    $scope.searchUser = function() {
+      $state.go('sketch-search', {
+        search:$scope.search,
+        method:"user"
+      });
+    }
+
+    $scope.searchSketch = function() {
+      $state.go('sketch-search', {
+        search:$scope.search,
+        method:"title"
+      });
+    }
+
+    $scope.goToUser = function(id) {
+      $state.go('user-sketch', {
+        userId:id
+      })
+    }
+
     var flow;
     /**
      * ====== important ========

@@ -18,7 +18,8 @@
             <li class="flowGridItem" ng-repeat="sketch in sketchList">
                 <a href=""><img ng-src="{{sketch.sketchImageURL}}"></a>
                 <div class="sketch-footer">
-                    <img ng-src="{{sketch.authorImageURL}}" alt="{{sketch.author}}" class="sketch-profile-image"/>
+                    <img ng-src="{{sketch.authorImageURL}}" alt="{{sketch.author}}"
+                         ng-click="goToUser(sketch.authorId)" class="sketch-profile-image"/>
                     <span>{{sketch.author}}</span>
 
                 <p class="sketch-title"><strong>Title: </strong>{{sketch.title}}</p>
