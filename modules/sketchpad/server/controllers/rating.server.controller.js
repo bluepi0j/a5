@@ -45,8 +45,6 @@ exports.rateBySketchId = function (req, res) {
                 sketchId: sketchId,
                 rating: myRating
             });
-            console.log('#######no previous rating'+newRating);
-            console.log('#######no previous rating'+newRating.rating);
             Sketchpad.findById(sketchId).exec(function (err, sketch) {
                 if (err) {
                     return err;
@@ -58,10 +56,11 @@ exports.rateBySketchId = function (req, res) {
                         });
                     }
                     var tempTimes = sketch.ratedTimes;
-                    var tempRating = sketch.avgRating;
-
-                    sketch.avgRating = (tempRating*tempTimes + newRating.rating)/(tempTimes+1);
+                    sketch.totalRating += newRating.rating;
                     sketch.ratedTimes = tempTimes + 1;
+                    sketch.avgRating = (sketch.totalRating)/(sketch.ratedTimes);
+
+
 
                     sketch.save(function(err){
                         if (err) {

@@ -37,6 +37,10 @@ var SketchpadSchema = new Schema({
         type: Boolean,
         default: false
     },
+    totalRating:{
+        type: Number,
+        default:0
+    },
     avgRating: {
         type: Number,
         default:0
