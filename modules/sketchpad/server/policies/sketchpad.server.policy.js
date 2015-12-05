@@ -23,6 +23,12 @@ exports.invokeRolesPolicies = function () {
         }, {
             resources: '/api/sketchpad/showAll',
             permissions: '*'
+        },{
+            resources: '/api/sketchpad/find/:sketchId',
+            permissions: '*'
+        },{
+            resources: '/api/sketchpad/:userId',
+            permissions: '*'
         }]
     },{
         roles: ['admin'],
@@ -32,6 +38,12 @@ exports.invokeRolesPolicies = function () {
         }, {
             resources: '/api/sketchpad/showAll',
             permissions: '*'
+        },{
+            resources: '/api/sketchpad/find/:sketchId',
+            permissions: '*'
+        },{
+            resources: '/api/sketchpad/:userId',
+            permissions: '*'
         }]
     }, {
         roles: ['superAdmin'],
@@ -40,6 +52,12 @@ exports.invokeRolesPolicies = function () {
             permissions: '*'
         }, {
             resources: '/api/sketchpad/showAll',
+            permissions: '*'
+        },{
+            resources: '/api/sketchpad/find/:sketchId',
+            permissions: '*'
+        },{
+            resources: '/api/sketchpad/:userId',
             permissions: '*'
         }]
     }]);
