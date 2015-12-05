@@ -15,12 +15,13 @@ var path = require('path'),
  */
 exports.show = function (req, res) {
     var sketchId = req.params.sketchId;
+    var result = [];
+    var lastIteration;
     Sketchpad.findById(sketchId).exec(function (err, sketch) {
         if (err) {
             return err;
         }
 
-        var result = [];
 
         //for (var i = 0; i < commentsList.length; i++){
         //    Comment.findById(commentsList[i]).exec (function (err, comment){
@@ -47,7 +48,9 @@ exports.show = function (req, res) {
                     //if(!user){
                     //    console.log("cannot find the user with id: " + sketchs[i].authorId);
                     result.push(comment);
-                    if (index == list.length - 1) {
+                    if (result.length == list.length) {
+                        console.log("####length-1 = index = : " + index);
+
                         res.json(result);
                     }
                 });

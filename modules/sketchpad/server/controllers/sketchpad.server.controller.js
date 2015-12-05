@@ -64,7 +64,7 @@ exports.showById = function(req, res) {
                 entry.authorImageURL = user.profileImageURL;
                 result.push(entry);
                 //console.log("!!!!!!!!result: " + result);
-                if (index == list.length - 1){
+                if (result.length == list.length){
                     res.json(result);
                 }
             });
@@ -118,8 +118,7 @@ exports.showAll = function (req, res) {
                 entry.author = user.displayName;
                 entry.authorImageURL = user.profileImageURL;
                 result.push(entry);
-                //console.log("!!!!!!!!result: " + result);
-                if (index == list.length - 1){
+                if (result.length == list.length){
                     res.json(result);
                 }
             });

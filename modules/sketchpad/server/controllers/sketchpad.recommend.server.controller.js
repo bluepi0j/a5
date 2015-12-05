@@ -12,6 +12,16 @@ var path = require('path'),
     User = mongoose.model('User');
 
 /**
+ * Find user's interest for user's searching.
+ */
+exports.learnInterest = function (req,res) {
+
+
+}
+
+
+
+/**
  * Recommend sketch by average rating.
  */
 exports.recommendByRating = function (req, res) {
@@ -35,7 +45,7 @@ exports.recommendByRating = function (req, res) {
                     entry.author = user.displayName;
                     entry.authorImageURL = user.profileImageURL;
                     result.push(entry);
-                    if (index == list.length - 1 || index == 4){
+                    if (result.length == list.length || result.length == 4){
                         res.json(result);
                     }
                 });
@@ -71,7 +81,7 @@ exports.recommendByRatedTimes = function (req, res) {
                     entry.author = user.displayName;
                     entry.authorImageURL = user.profileImageURL;
                     result.push(entry);
-                    if (index == list.length - 1 || index == 4){
+                    if (result.length == list.length || result.length == 4){
                         res.json(result);
                     }
                 });
