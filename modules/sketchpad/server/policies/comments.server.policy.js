@@ -18,46 +18,28 @@ exports.invokeRolesPolicies = function () {
     acl.allow([{
         roles: ['user'],
         allows: [{
-            resources: '/api/sketchpad/save',
+            resources: '/api/comments/show/:sketchId',
             permissions: '*'
         }, {
-            resources: '/api/sketchpad/showAll',
-            permissions: '*'
-        },{
-            resources: '/api/sketchpad/find/:sketchId',
-            permissions: '*'
-        },{
-            resources: '/api/sketchpad/:userId',
+            resources: '/api/comments/save/:sketchId',
             permissions: '*'
         }]
     },{
         roles: ['admin'],
         allows: [{
-            resources: '/api/sketchpad/save',
+            resources: '/api/comments/show/:sketchId',
             permissions: '*'
         }, {
-            resources: '/api/sketchpad/showAll',
-            permissions: '*'
-        },{
-            resources: '/api/sketchpad/find/:sketchId',
-            permissions: '*'
-        },{
-            resources: '/api/sketchpad/:userId',
+            resources: '/api/comments/save/:sketchId',
             permissions: '*'
         }]
     }, {
         roles: ['superAdmin'],
         allows: [{
-            resources: '/api/sketchpad/save',
+            resources: '/api/comments/show/:sketchId',
             permissions: '*'
         }, {
-            resources: '/api/sketchpad/showAll',
-            permissions: '*'
-        },{
-            resources: '/api/sketchpad/find/:sketchId',
-            permissions: '*'
-        },{
-            resources: '/api/sketchpad/:userId',
+            resources: '/api/comments/save/:sketchId',
             permissions: '*'
         }]
     }]);
