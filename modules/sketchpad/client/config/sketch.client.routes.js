@@ -18,7 +18,11 @@ angular.module('sketch').config(['$stateProvider',
             })
             .state('sketch-search', {
                 url: '/sketch/search',
-                templateUrl: 'modules/sketchpad/client/views/sketch-search.client.view.html'
+                templateUrl: 'modules/sketchpad/client/views/sketch-search.client.view.html',
+                params: {
+                    search: null,
+                    method: null
+                }
 
             });
 
