@@ -9,11 +9,26 @@ var path = require('path'),
     mongoose = require('mongoose'),
     crypto = require('crypto'),
     config = require(path.resolve('./config/config')),
+    User = mongoose.model('User'),
     Sketchpad = mongoose.model('Sketchpad');
 /**
  * Show all works with specified user
  */
-exports.showById = function (req, res) {
+exports.showById = exports.userByID = function (req, res, id) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).send({
+            message: 'User is invalid'
+        });
+    }
+
+    Sketchpad.find({
+        authorId: id
+    }).exec(function (err, sketchs) {
+        if (err) {
+            return next(err);
+        }
+        res.json(sketchs);
+    });
 };
 
 /**
@@ -26,11 +41,52 @@ exports.showAll = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         }
+        var result =[];
+        //var temp;
+        //for (var i = 0; i < sketchs.length; i++){
+        //    console.log("!!!!!!!!index: " + 1);
+        //    temp = sketchs[i];
+        //    User.findById(sketchs[i].authorId).exec(function(err,user) {
+        //        if (err){
+        //            return res.status(400).send({
+        //                message: errorHandler.getErrorMessage(err)
+        //            });
+        //        }
+        //        //if(!user){
+        //        //    console.log("cannot find the user with id: " + sketchs[i].authorId);
+        //        //}else{
+        //        console.log("sketchs we got is at index: " + i + " - " + temp);
+        //            temp.author = user.displayName;
+        //            temp.authorImageURL = user.profileImageURL;
+        //            result.push(temp);
+        //    });
+        //}
+        sketchs.forEach(function(entry, index, list){
+            User.findById(entry.authorId).exec(function(err,user) {
+                if (err){
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                }
+                //if(!user){
+                //    console.log("cannot find the user with id: " + sketchs[i].authorId);
+                //}else{
+                console.log("sketchs------" + entry);
+                entry.author = user.displayName;
+                entry.authorImageURL = user.profileImageURL;
+                result.push(entry);
+                console.log("!!!!!!!!result: " + result);
+                if (index == list.length - 1){
+                    res.json(result);
+                }
+            });
 
-        res.json(sketchs);
+        });
 
     });
 };
+
+
 
 exports.save = function (req, res) {
     var user = req.user;
@@ -46,14 +102,11 @@ exports.save = function (req, res) {
         if(err) throw err;
         var sketchpad = new Sketchpad({
             title:req.body.title,
-            author:user.displayName,
-            authorImageURL:user.profileImageURL,
+            //author:user.displayName,
+            //authorImageURL:user.profileImageURL,
+            authorId:user._id,
             sketchImageURL: config.uploads.sketchSave.dest + filename,
-            comments: [],
-            newcomment: {
-                type: Boolean,
-                default: false
-            }
+            comments: []
         });
 
         sketchpad.save(function (err) {
