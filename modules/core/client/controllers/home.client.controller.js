@@ -47,6 +47,12 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       });
     }
 
+    $scope.goToUser = function(id) {
+      $state.go('user-sketch', {
+        userId:id
+      })
+    }
+
     var flow;
     /**
      * ====== important ========

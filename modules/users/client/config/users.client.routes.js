@@ -46,7 +46,11 @@ angular.module('users').config(['$stateProvider',
         abstract: true,
         url: '/password',
         template: '<ui-view/>'
-      });
+      })
+        .state('user-sketch', {
+          url:'/sketch/:userId',
+          templateUrl: 'modules/users/client/views/user-sketch.client.view.html'
+        });
 
   }
 ]);
