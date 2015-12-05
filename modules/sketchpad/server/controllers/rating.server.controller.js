@@ -35,19 +35,18 @@ exports.rateBySketchId = function (req, res) {
     var sketchId = req.params.sketchId;
     var user = req.user;
     var myRating = req.body.rate;
-
-    Rating.find({sketchId:sketchId, userId:user._id}).exec(function (err, rating) {
+    Rating.find({sketchId:sketchId, userId:user._id}).exec(function (err, doc) {
         if (err) {
             return err;
         }
-
-        if(rating.length == 0){
-
-            var newRating = new Comment ({
+        if(doc.length == 0){
+            var newRating = new Rating ({
                 userId: user._id,
                 sketchId: sketchId,
                 rating: myRating
             });
+            console.log('#######no previous rating'+newRating);
+            console.log('#######no previous rating'+newRating.rating);
             Sketchpad.findById(sketchId).exec(function (err, sketch) {
                 if (err) {
                     return err;
@@ -59,9 +58,9 @@ exports.rateBySketchId = function (req, res) {
                         });
                     }
                     var tempTimes = sketch.ratedTimes;
-                    var tempRating = sketch.rating;
+                    var tempRating = sketch.avgRating;
 
-                    sketch.rating = (tempRating*tempTimes + newRating.rating)/(tempTimes+1);
+                    sketch.avgRating = (tempRating*tempTimes + newRating.rating)/(tempTimes+1);
                     sketch.ratedTimes = tempTimes + 1;
 
                     sketch.save(function(err){
@@ -78,39 +77,72 @@ exports.rateBySketchId = function (req, res) {
                 });
             });
 
-        }else{
-            var oldRating = rating.rating;
-            rating.rating = myRating;
+        } //else{
 
-            Sketchpad.findById(sketchId).exec(function (err, sketch) {
-                if (err) {
-                    return err;
-                }
-                rating.save(function (err) {
-                    if (err) {
-                        return res.status(400).send({
-                            message: errorHandler.getErrorMessage(err)
-                        });
-                    }
-                    var tempTimes = sketch.ratedTimes;
-                    var tempRating = sketch.rating;
 
-                    sketch.rating = (tempRating*tempTimes - oldRating + rating.rating)/tempTimes;
 
-                    sketch.save(function(err){
-                        if (err) {
-                            return res.status(400).send({
-                                message: errorHandler.getErrorMessage(err)
-                            });
-                        } else {
-                            res.send({
-                                message: 'Success'
-                            });
-                        }
-                    });
-                });
-            });
-        }
+            //var oldRating = doc.rating;
+            //doc.rating = myRating;
+            //console.log('#######rating Updating' + doc);
+            //console.log('#######rating Updating' + doc.rating);
+            //
+            //doc.save();
+            //console.log('#######rating Updating' + doc);
+            //console.log('#######rating Updating' + doc.rating);
+            //
+            //
+            //Sketchpad.findById(sketchId).exec(function (err, sketch) {
+            //    if (err) {
+            //        return err;
+            //    }
+            //    var tempTimes = sketch.ratedTimes;
+            //    var tempRating = sketch.avgRating;
+            //
+            //    sketch.avgRating = (tempRating*tempTimes - oldRating + myRating)/tempTimes;
+            //
+            //    sketch.save(function(err){
+            //        if (err) {
+            //            return res.status(400).send({
+            //                message: errorHandler.getErrorMessage(err)
+            //            });
+            //        } else {
+            //            res.send({
+            //                message: 'Success'
+            //            });
+            //        }
+            //    });
+            //
+            //});
+
+            //Sketchpad.findById(sketchId).exec(function (err, sketch) {
+            //    if (err) {
+            //        return err;
+            //    }
+            //    doc.save(function (err) {
+            //        if (err) {
+            //            return res.status(400).send({
+            //                message: errorHandler.getErrorMessage(err)
+            //            });
+            //        }
+            //        var tempTimes = sketch.ratedTimes;
+            //        var tempRating = sketch.avgRating;
+            //
+            //        sketch.avgRating = (tempRating*tempTimes - oldRating + rate.rating)/tempTimes;
+            //
+            //        sketch.save(function(err){
+            //            if (err) {
+            //                return res.status(400).send({
+            //                    message: errorHandler.getErrorMessage(err)
+            //                });
+            //            } else {
+            //                res.send({
+            //                    message: 'Success'
+            //                });
+            //            }
+            //        });
+            //    });
+            //});
+        //}
 
     });
 };
