@@ -38,14 +38,14 @@ module.exports = {
         title: defaultEnvConfig.app.title
     },
     facebook: {
-        clientID: process.env.FACEBOOK_ID || 'APP_ID',
-        clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET',
+        clientID: "153187085038432",
+        clientSecret: "1bd465c21ff1351c5b7de29e6eddf841",
         callbackURL: '/api/auth/facebook/callback'
     },
     twitter: {
-        clientID: process.env.TWITTER_KEY || 'CONSUMER_KEY',
-        clientSecret: process.env.TWITTER_SECRET || 'CONSUMER_SECRET',
-        callbackURL: '/api/auth/twitter/callback'
+        clientID: "15NIefm8EtAVSXmFb2dtnXQ9w",
+        clientSecret: "e1NFDEILVWXZpdIgtLC0u8snIrevRdKwEzsskM0r4XJHU2moZO",
+        callbackURL: '/auth/twitter/callback'
     },
     google: {
         clientID: process.env.GOOGLE_ID || 'APP_ID',
