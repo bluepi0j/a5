@@ -44,19 +44,41 @@ exports.show = function (req, res) {
 
 exports.save = function (req, res) {
     var sketchId = req.sketchID;
+    var user = req.user;
+
     if (!mongoose.Types.ObjectId.isValid(sketchId)) {
         return res.status(400).send({
             message: 'Sketch to comment is invalid'
         });
     }
     var newComment = new Comment ({
-
+        userId: user._id,
+        sketchId: sketchId,
+        text: req.text,
     });
     Sketchpad.findById(sketchId).exec(function (err, sketch) {
         if (err) {
             return err;
         }
-
-        res.send("success");
+        newComment.save(function (err) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            }
+            sketch.newcomment = true;
+            sketch.comments.push(newComment._id);
+            sketch.save(function(err){
+                if (err) {
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                } else {
+                    res.send({
+                        message: 'Success'
+                    });
+                }
+            });
+        });
     });
 };

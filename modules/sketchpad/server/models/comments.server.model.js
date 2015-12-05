@@ -13,17 +13,17 @@ var mongoose = require('mongoose'),
  * Sketch Schema
  */
 var CommentSchema = new Schema({
-    author: {
+    username: {
+        type: String
+    },
+    userId:{
+        type: String
+    },
+    sketchId: {
         type: String
     },
     text: {
-        type: String
-    },
-    sketchAuthor: {
-        type:String
-    },
-    sketchID: {
-        type: Object
+       type: String
     },
     created: {
         type: Date,
