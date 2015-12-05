@@ -13,7 +13,7 @@ var path = require('path'),
 
 
 exports.showUserRatingBySketchId = function (req, res) {
-    var sketchId = req.params.sketchID;
+    var sketchId = req.params.sketchId;
     var user = req.user;
     Rating.find({sketchId:sketchId, userId:user._id}).exec(function (err, rating) {
         if (err) {
@@ -27,7 +27,7 @@ exports.showUserRatingBySketchId = function (req, res) {
 
 
 exports.rateBySketchId = function (req, res) {
-    var sketchId = req.params.sketchID;
+    var sketchId = req.params.sketchId;
     var user = req.user;
     var myRating = req.params.rate;
 

@@ -12,7 +12,7 @@ var path = require('path'),
 
 
 exports.show = function (req, res) {
-    var sketchId = req.params.sketchID;
+    var sketchId = req.params.sketchId;
     Sketchpad.findById(sketchId).exec(function (err, sketch) {
         if (err) {
             return err;
@@ -54,7 +54,7 @@ exports.show = function (req, res) {
 };
 
 exports.save = function (req, res) {
-    var sketchId = req.params.sketchID;
+    var sketchId = req.params.sketchId;
     var user = req.user;
 
     var newComment = new Comment ({
