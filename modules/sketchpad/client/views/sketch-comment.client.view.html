@@ -30,11 +30,16 @@
                 <button class="btn btn-primary" ng-click="addNewComment()">Add</button>
             </div>
             <div>
-                <ul ng-repeat="comment in comments">
+                <ul style="text-align:left" ng-repeat="comment in comments">
                     <li class="comment-list">
-                        {{comment.username}}
-                        {{comment.profileImageURL}}
-                        {{comment.text}}
+                        <div style="box-shadow: 0 4px 2px -2px gray;">
+                            <img ng-src="{{comment.authorImageURL}}" alt="{{sketch.author}}"
+                                 ng-click="goToUser(sketch.authorId)" class="sketch-profile-image"/>
+                            {{comment.username}}
+                        </div>
+                        <div>
+                            <span>{{comment.text}}</span>
+                        </div>
 
                     </li>
                 </ul>

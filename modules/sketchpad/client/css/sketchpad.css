@@ -84,4 +84,5 @@ body {
 .comment-list {
     /*border-style: solid none none none;*/
     border-top: 1px dashed grey;
+    list-style: none;
 }

@@ -29,6 +29,11 @@ angular.module('sketch').controller('SketchCommentController', ['$scope', 'Authe
             }
         })
 
+        $scope.goToUser = function(id) {
+            $state.go('user-sketch', {
+                userId:id
+            })
+        }
 
         $scope.hoveringOver = function (value) {
             $scope.overStar = value;
