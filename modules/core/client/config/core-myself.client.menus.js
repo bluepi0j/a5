@@ -5,7 +5,7 @@ angular.module('core.sketch').run(['Menus',
         Menus.addMenuItem('topbar', {
             title: 'My Sketch',
             state: 'user-sketch',
-            roles: ['*']
+            roles: ['admin', 'superAdmin','user']
         });
     }
 ]);

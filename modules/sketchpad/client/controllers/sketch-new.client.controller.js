@@ -6,12 +6,11 @@ angular.module('sketch').controller('SketchNewController', ['$scope', 'Authentic
         // This provides Authentication context.
         $scope.authentication = Authentication;
         $scope.title = undefined;
-        
 
         $scope.save = function () {
             $scope.canvas = document.getElementById('pwCanvasMain');
             var dataURL = $scope.canvas.toDataURL();
-            //$scope.bolb = dataURLToBlob(dataURL);
+
             var data = {
                 dataURL: dataURL,
                 title: $scope.title

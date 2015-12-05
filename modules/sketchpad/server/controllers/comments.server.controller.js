@@ -19,9 +19,8 @@ exports.show = function (req, res) {
         if (err) {
             return err;
         }
-        console.log(sketch);
 
-        var result =[];
+        var result = [];
 
         //for (var i = 0; i < commentsList.length; i++){
         //    Comment.findById(commentsList[i]).exec (function (err, comment){
@@ -35,22 +34,26 @@ exports.show = function (req, res) {
         //    });
         //}
         //res.json(result);
-        sketch.comments.forEach(function(entry, index, list){
-            Comment.findById(entry).exec(function(err,comment) {
-                if (err){
-                    return res.status(400).send({
-                        message: errorHandler.getErrorMessage(err)
-                    });
-                }
-                //if(!user){
-                //    console.log("cannot find the user with id: " + sketchs[i].authorId);
-                result.push(comment);
-                if (index == list.length - 1){
-                    res.json(result);
-                }
-            });
+        if (sketch.comments.length == 0) {
+            res.json(result);
+        } else {
+            sketch.comments.forEach(function (entry, index, list) {
+                Comment.findById(entry).exec(function (err, comment) {
+                    if (err) {
+                        return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                        });
+                    }
+                    //if(!user){
+                    //    console.log("cannot find the user with id: " + sketchs[i].authorId);
+                    result.push(comment);
+                    if (index == list.length - 1) {
+                        res.json(result);
+                    }
+                });
 
-        });
+            });
+        }
     });
 
 };
@@ -62,7 +65,7 @@ exports.save = function (req, res) {
     var sketchId = req.params.sketchId;
     var user = req.user;
 
-    var newComment = new Comment ({
+    var newComment = new Comment({
         username: user.displayName,
         userId: user._id,
         sketchId: sketchId,
@@ -80,7 +83,7 @@ exports.save = function (req, res) {
             }
             sketch.newComment = true;
             sketch.comments.push(newComment._id);
-            sketch.save(function(err){
+            sketch.save(function (err) {
                 if (err) {
                     return res.status(400).send({
                         message: errorHandler.getErrorMessage(err)

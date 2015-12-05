@@ -27,5 +27,12 @@ angular.module('sketch').service('SketchCommentService', function ($http) {
         })
     }
 
+    service.getAllComment = function (sketchId) {
+        return $http({
+            url: '../api/comments/show/' + sketchId,
+            method: 'GET'
+        })
+    }
+
      return service;
 })
