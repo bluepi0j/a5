@@ -11,26 +11,6 @@ var path = require('path'),
     config = require(path.resolve('./config/config')),
     User = mongoose.model('User'),
     Sketchpad = mongoose.model('Sketchpad');
-/**
- * Show all works with specified user
- */
-//exports.showById = exports.userByID = function (req, res, id) {
-//    if (!mongoose.Types.ObjectId.isValid(id)) {
-//        return res.status(400).send({
-//            message: 'User is invalid'
-//        });
-//    }
-//
-//    Sketchpad.find({
-//        authorId: id
-//    }).exec(function (err, sketchs) {
-//        if (err) {
-//            return next(err);
-//        }
-//        res.json(sketchs);
-//    });
-//};
-
 
 /**
  * Find the sketch by id.
@@ -214,4 +194,21 @@ exports.save = function (req, res) {
     //        message: 'You must signed in to save your sketch'
     //    });
     //}
+};
+
+/**
+ * Delete the sketch.
+ */
+exports.delete = function (req, res) {
+    var sketch = req.model;
+
+    sketch.remove(function (err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        }
+
+        res.json(sketch);
+    });
 };

@@ -22,27 +22,33 @@ exports.recommendByRating = function (req, res) {
             });
         }
         var result =[];
+        if (sketch == 0) {
+            res.json(result);
+        } else {
+            sketchs.forEach(function(entry, index, list){
+                User.findById(entry.authorId).exec(function(err,user) {
+                    if (err){
+                        return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                        });
+                    }
+                    entry.author = user.displayName;
+                    entry.authorImageURL = user.profileImageURL;
+                    result.push(entry);
+                    if (index == list.length - 1 || index == 4){
+                        res.json(result);
+                    }
+                });
 
-        sketchs.forEach(function(entry, index, list){
-            User.findById(entry.authorId).exec(function(err,user) {
-                if (err){
-                    return res.status(400).send({
-                        message: errorHandler.getErrorMessage(err)
-                    });
-                }
-                entry.author = user.displayName;
-                entry.authorImageURL = user.profileImageURL;
-                result.push(entry);
-                if (index == list.length - 1 || index == 4){
-                    res.json(result);
-                }
             });
-
-        });
+        }
 
     });
 };
 
+/**
+ * Recommend sketch by rated times.
+ */
 exports.recommendByRatedTimes = function (req, res) {
     Sketchpad.find().sort('-ratedTimes').exec(function(err, sketchs) {
         if (err) {
@@ -52,22 +58,26 @@ exports.recommendByRatedTimes = function (req, res) {
         }
         var result =[];
 
-        sketchs.forEach(function(entry, index, list){
-            User.findById(entry.authorId).exec(function(err,user) {
-                if (err){
-                    return res.status(400).send({
-                        message: errorHandler.getErrorMessage(err)
-                    });
-                }
-                entry.author = user.displayName;
-                entry.authorImageURL = user.profileImageURL;
-                result.push(entry);
-                if (index == list.length - 1 || index == 4){
-                    res.json(result);
-                }
+        if (sketch == 0) {
+            res.json(result);
+        } else {
+            sketchs.forEach(function(entry, index, list){
+                User.findById(entry.authorId).exec(function(err,user) {
+                    if (err){
+                        return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                        });
+                    }
+                    entry.author = user.displayName;
+                    entry.authorImageURL = user.profileImageURL;
+                    result.push(entry);
+                    if (index == list.length - 1 || index == 4){
+                        res.json(result);
+                    }
+                });
+
             });
-
-        });
-
+        }
     });
 };
+
