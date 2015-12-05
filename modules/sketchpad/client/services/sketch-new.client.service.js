@@ -3,12 +3,11 @@
 angular.module('sketch').service('SketchNewService', function ($http) {
 
     var service = this;
-    service.url = "http://127.0.0.1:3000";
 
 
     service.saveSketch = function (data) {
         return $http({
-            url: service.url + '/api/sketchpad/save',
+            url: '../api/sketchpad/save',
             method: 'POST',
             data: JSON.stringify(data)
         })
