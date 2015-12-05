@@ -14,12 +14,11 @@
 angular.module('users').service('UserService', function($http) {
 
     var service = this;
-    service.url = "http://127.0.0.1:3000";
 
 
     service.updateProfile = function (data) {
         return $http({
-            url: service.url + '/api/users',
+            url: '../api/users',
             method: 'put',
             data: JSON.stringify(data)
         })
@@ -45,33 +44,32 @@ angular.module('users.admin').factory('Admin', ['$resource',
 angular.module('users.admin').service('AdminService', function($http) {
 
     var service = this;
-    service.url = "http://127.0.0.1:3000";
 
 
     service.getUserList = function () {
         return $http({
-            url: service.url + '/api/users',
+            url: '../api/users',
             method: 'GET',
         })
     }
 
     service.getOneUser = function (userID) {
         return $http({
-            url: service.url + '/api/users/' + userID,
+            url: '../api/users/' + userID,
             method: 'GET',
         })
     }
 
     service.removeUser = function (userID) {
         return $http({
-            url: service.url + '/api/users/' + userID,
+            url: '../api/users/' + userID,
             method: 'DELETE'
         })
     }
 
     service.updateUser = function (userID, data) {
         return $http({
-            url: service.url + '/api/users/' + userID,
+            url: '../api/users/' + userID,
             method: 'PUT',
             data: JSON.stringify(data)
         })
@@ -79,7 +77,7 @@ angular.module('users.admin').service('AdminService', function($http) {
 
     service.changePassword = function(userID, data) {
         return $http({
-            url: service.url + '/api/users/password/' + userID,
+            url: '../api/users/password/' + userID,
             method: 'POST',
             data: JSON.stringify(data)
         })

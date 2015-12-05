@@ -14,12 +14,11 @@ angular.module('users').factory('Authentication', ['$window',
 angular.module('users').service('AuthenticationService', function($http) {
 
   var service = this;
-  service.url = "http://127.0.0.1:3000";
 
 
   service.signin = function (data) {
     return $http({
-      url: service.url + '/api/auth/signin',
+      url: '../api/auth/signin',
       method: 'POST',
       data: JSON.stringify(data)
     })
@@ -27,7 +26,7 @@ angular.module('users').service('AuthenticationService', function($http) {
 
   service.signup = function (data) {
     return $http({
-      url: service.url + '/api/auth/signup',
+      url: '../api/auth/signup',
       method: 'POST',
       data: JSON.stringify(data)
     });
@@ -35,7 +34,7 @@ angular.module('users').service('AuthenticationService', function($http) {
 
   service.changePassword = function(data) {
     return $http({
-      url: service.url + '/api/users/password',
+      url: '../api/users/password',
       method: 'POST',
       data: JSON.stringify(data)
     })
