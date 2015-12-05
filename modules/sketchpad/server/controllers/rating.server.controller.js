@@ -11,7 +11,9 @@ var path = require('path'),
     Comment = mongoose.model('Comment');
     Rating = mongoose.model('Rating');
 
-
+/**
+ *Show current user's rating on a sketch
+ */
 exports.showUserRatingBySketchId = function (req, res) {
     var sketchId = req.params.sketchId;
     var user = req.user;
@@ -25,7 +27,11 @@ exports.showUserRatingBySketchId = function (req, res) {
     });
 };
 
-
+/**
+ *Save current user's rating on a sketch. If not rated for it yet, create a new
+ * rating; if rated before, update the rating. Recalculate sketch's overall rating
+ * and ratedTimes accordingly.
+ */
 exports.rateBySketchId = function (req, res) {
     var sketchId = req.params.sketchId;
     var user = req.user;

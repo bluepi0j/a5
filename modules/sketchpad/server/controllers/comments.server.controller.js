@@ -10,7 +10,9 @@ var path = require('path'),
     Sketchpad = mongoose.model('Sketchpad'),
     Comment = mongoose.model('Comment');
 
-
+/**
+ *Show all comments for a sketch
+ */
 exports.show = function (req, res) {
     var sketchId = req.params.sketchId;
     Sketchpad.findById(sketchId).exec(function (err, sketch) {
@@ -53,6 +55,9 @@ exports.show = function (req, res) {
 
 };
 
+/**
+ *Create a comment for a sketch, update sketch new comment flag
+ */
 exports.save = function (req, res) {
     var sketchId = req.params.sketchId;
     var user = req.user;
