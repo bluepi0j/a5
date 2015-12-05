@@ -33,7 +33,7 @@
                 <ul style="text-align:left" ng-repeat="comment in comments">
                     <li class="comment-list">
                         <div style="box-shadow: 0 4px 2px -2px gray;">
-                            <img ng-src="{{comment.authorImageURL}}" alt="{{sketch.author}}"
+                            <img ng-src="{{comment.userImageURL}}" alt="{{sketch.author}}"
                                  ng-click="goToUser(sketch.authorId)" class="sketch-profile-image"/>
                             {{comment.username}}
                         </div>
