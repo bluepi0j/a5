@@ -56,7 +56,19 @@ a:hover .header-profile-image {
   margin-top: 15px;
 }
 
+.flowGridItem:hover {
+  list-style: none;
+  box-shadow: 0 0 15px grey;
+  -ms-transform: scale(1.04,1.04); /* IE 9 */
+  -webkit-transform: scale(1.04,1.04); /* Safari */
+  transform: scale(1.04,1.04); /* Standard syntax */
+}
+
 .flowGridItem img{width:100%;}
+.flowGridItem img:hover {
+  cursor:pointer;
+}
+
 .flowGridColumn{
   float: left;
   padding-left: 10px;
