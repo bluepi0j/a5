@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication','fgDelegate',"$timeout",
-  '$filter', '$state', 'HomeSketchService',
-  function ($scope, Authentication, fgDelegate, $timeout, $filter, $state, HomeSketchService) {
+  '$state', 'HomeSketchService',
+  function ($scope, Authentication, fgDelegate, $timeout, $state, HomeSketchService) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
@@ -32,7 +32,20 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         sketckId: id
       });
     }
-    
+
+    $scope.searchUser = function() {
+      $state.go('sketch-search', {
+        search:$scope.search,
+        method:"user"
+      });
+    }
+
+    $scope.searchSketch = function() {
+      $state.go('sketch-search', {
+        search:$scope.search,
+        method:"title"
+      });
+    }
 
     var flow;
     /**

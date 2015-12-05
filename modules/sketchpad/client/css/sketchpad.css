@@ -46,3 +46,8 @@ margin: 10px auto 0 auto;
 
 .my-drop-zone { border: dotted 3px lightgray; }
 .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+
+.nomatch {
+    font-size: 40px;
+    margin-left: 30%;
+}

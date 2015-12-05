@@ -1,3 +1,32 @@
 <section ng-controller="SketchSearchController">
 
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"> </div>
+            <div class="col-md-4">
+                <input class="form-control" type="text" ng-model="search" placeholder="Search"/>
+            </div>
+            <button class="btn btn-primary btn-sm col-md-2" ng-click="searchSketch()">Search BY Title</button>
+            <button class="btn btn-primary btn-sm col-md-2" ng-click="searchUser()">Search BY User</button>
+
+        </div>
+    </div>
+    <br>
+    <div class="nomatch" ng-show="message">{{message}}</div>
+    <div>
+    <ul class="flowGrid" id="demogrid">
+        <li class="flowGridItem" ng-repeat="sketch in sketchList">
+            <img ng-src="{{sketch.sketchImageURL}}" ng-click="goToComment(sketch._id)">
+            <div class="sketch-footer">
+                <img ng-src="{{sketch.authorImageURL}}" alt="{{sketch.author}}" class="sketch-profile-image"/>
+                <span>{{sketch.author}}</span>
+
+                <p class="sketch-title"><strong>Title: </strong>{{sketch.title}}</p>
+
+            </div>
+
+        </li>
+    </ul>
+    </div>
 </section>
