@@ -1,4 +1,32 @@
 <section ng-controller="UserSketchController">
-    <h1>{{}}</h1>
 
+    <div class="usertop">
+        <div class="container">
+            <h3>{{user.displayName}}</h3>
+            <img src="{{user.profileImageURL}}" class="img-circle userpic">
+        </div>
+    </div>
+
+    <br>
+    <div class="nomatch" ng-show="message">{{message}}</div>
+
+    <div class="container">
+        <div>
+            <ul class="flowGrid" id="demogrid">
+                <li class="flowGridItem" ng-repeat="sketch in sketchList">
+                    <img ng-src="{{sketch.sketchImageURL}}" ng-click="goToComment(sketch._id)">
+
+                    <div class="sketch-footer">
+                        <img ng-src="{{sketch.authorImageURL}}" alt="{{sketch.author}}"
+                             ng-click="goToUser(sketch.authorId)" class="sketch-profile-image"/>
+                        <span>{{sketch.author}}</span>
+
+                        <p class="sketch-title"><strong>Title: </strong>{{sketch.title}}</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
 </section>

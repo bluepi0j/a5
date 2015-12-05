@@ -34,3 +34,21 @@
   min-height: 150px;
   max-height: 150px;
 }
+
+.userpic {
+  min-height: 150px;
+  max-height: 150px;
+}
+
+.usertop {
+  margin-top: 5px;
+  box-shadow: 0 0 3px grey;
+  background-color: #2aabd2;
+  text-align: center;
+
+}
+
+.nomatch {
+  font-size: 40px;
+  margin-left: 30%;
+}

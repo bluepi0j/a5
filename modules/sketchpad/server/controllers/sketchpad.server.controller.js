@@ -14,22 +14,56 @@ var path = require('path'),
 /**
  * Show all works with specified user
  */
-exports.showById = exports.userByID = function (req, res, id) {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).send({
-            message: 'User is invalid'
-        });
-    }
+//exports.showById = exports.userByID = function (req, res, id) {
+//    if (!mongoose.Types.ObjectId.isValid(id)) {
+//        return res.status(400).send({
+//            message: 'User is invalid'
+//        });
+//    }
+//
+//    Sketchpad.find({
+//        authorId: id
+//    }).exec(function (err, sketchs) {
+//        if (err) {
+//            return next(err);
+//        }
+//        res.json(sketchs);
+//    });
+//};
 
-    Sketchpad.find({
-        authorId: id
-    }).exec(function (err, sketchs) {
+exports.showById = function(req, res) {
+    var id = req.params.userId;
+    Sketchpad.find({authorId: id}).exec(function (err, sketchs) {
         if (err) {
-            return next(err);
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
         }
-        res.json(sketchs);
+        var result =[];
+        sketchs.forEach(function(entry, index, list){
+            User.findById(entry.authorId).exec(function(err,user) {
+                if (err){
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                }
+                //if(!user){
+                //    console.log("cannot find the user with id: " + sketchs[i].authorId);
+                //}else{
+                //console.log("sketchs------" + entry);
+                entry.author = user.displayName;
+                entry.authorImageURL = user.profileImageURL;
+                result.push(entry);
+                //console.log("!!!!!!!!result: " + result);
+                if (index == list.length - 1){
+                    res.json(result);
+                }
+            });
+
+        });
+
     });
-};
+}
 
 /**
  * Show all
@@ -71,11 +105,11 @@ exports.showAll = function (req, res) {
                 //if(!user){
                 //    console.log("cannot find the user with id: " + sketchs[i].authorId);
                 //}else{
-                console.log("sketchs------" + entry);
+                //console.log("sketchs------" + entry);
                 entry.author = user.displayName;
                 entry.authorImageURL = user.profileImageURL;
                 result.push(entry);
-                console.log("!!!!!!!!result: " + result);
+                //console.log("!!!!!!!!result: " + result);
                 if (index == list.length - 1){
                     res.json(result);
                 }

@@ -1,8 +1,8 @@
 'use strict';
 
 // Setting up route
-angular.module('users').config(['$stateProvider',
-  function ($stateProvider) {
+angular.module('users').config(['$stateProvider','$windowProvider',
+  function ($stateProvider, $windowProvider) {
     // Users state routing
     $stateProvider
       .state('settings', {
@@ -48,8 +48,11 @@ angular.module('users').config(['$stateProvider',
         template: '<ui-view/>'
       })
         .state('user-sketch', {
-          url:'/sketch/:userId',
-          templateUrl: 'modules/users/client/views/user-sketch.client.view.html'
+          url:'/user/sketch/:userId',
+          templateUrl: 'modules/users/client/views/user-sketch.client.view.html',
+          params: {
+            userId: $windowProvider.$get().user._id,
+          }
         });
 
   }

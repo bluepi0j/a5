@@ -49,6 +49,12 @@ angular.module('sketch').controller('SketchSearchController', ['$scope', 'Authen
             });
         }
 
+        $scope.goToUser = function(id) {
+            $state.go('user-sketch', {
+                userId:id
+            })
+        }
+
         var flow;
         /**
          * ====== important ========

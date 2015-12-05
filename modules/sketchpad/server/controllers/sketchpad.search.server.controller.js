@@ -13,18 +13,38 @@ var path = require('path'),
 
 
 exports.searchTitle = function(req,res){
-    Sketchpad.find({ title: { $regex:  new RegExp('^'+req.params.titleString) } }).sort('-created').exec(function(err, sketch) {
+    Sketchpad.find({ title: { $regex:  new RegExp('^'+req.params.titleString) } }).sort('-created').exec(function(err, sketchs) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         }
-        else if(sketch == null){
+        else if(sketchs == null){
             return res.status(400).send({
                 message: 'No matches found'
             });
         }
-        res.json(sketch);
+        var result =[];
+
+        sketchs.forEach(function(entry, index, list){
+            User.findById(entry.authorId).exec(function(err,user) {
+                if (err){
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                }
+                //if(!user){
+                //    console.log("cannot find the user with id: " + sketchs[i].authorId);
+                //}else{
+                entry.author = user.displayName;
+                entry.authorImageURL = user.profileImageURL;
+                result.push(entry);
+                if (index == list.length - 1){
+                    res.json(result);
+                }
+            });
+
+        });
 
     });
 }

@@ -87,6 +87,10 @@ a:hover .header-profile-image {
   margin-right: 5px;
 }
 
+.sketch-profile-image:hover {
+  box-shadow: 0 0 1px blue;
+
+}
 .sketch-footer {
   height:100px;
 }
