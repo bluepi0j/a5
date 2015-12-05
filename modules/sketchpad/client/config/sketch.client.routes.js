@@ -13,7 +13,7 @@ angular.module('sketch').config(['$stateProvider',
                 }
             })
             .state('sketch-comment', {
-                url: '/sketch/comment/:sketckId',
+                url: '/sketch/comment/:sketchId',
                 templateUrl: 'modules/sketchpad/client/views/sketch-comment.client.view.html'
             })
             .state('sketch-search', {

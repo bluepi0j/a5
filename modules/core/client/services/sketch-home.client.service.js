@@ -13,6 +13,5 @@ angular.module('core').service('HomeSketchService', function ($http) {
     }
 
 
-
     return service;
 })

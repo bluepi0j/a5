@@ -4,9 +4,9 @@ angular.module('sketch').service('SketchCommentService', function ($http) {
 
     var service = this;
 
-    service.getOneSketchs = function (sketchId) {
+    service.getOneSketch = function (sketchId) {
         return $http({
-            url: '../api/sketchpad/' + sketchId,
+            url: '../api/comments/show/' + sketchId,
             method: 'GET'
         })
     }

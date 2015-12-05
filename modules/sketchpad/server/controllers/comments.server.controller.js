@@ -6,24 +6,20 @@ var path = require('path'),
     fs = require('fs'),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
     mongoose = require('mongoose'),
-    crypto = require('crypto'),
     config = require(path.resolve('./config/config')),
     Sketchpad = mongoose.model('Sketchpad'),
     Comment = mongoose.model('Comment');
 
 
 exports.show = function (req, res) {
-    var sketchId = req.sketchID;
-    if (!mongoose.Types.ObjectId.isValid(sketchId)) {
-        return res.status(400).send({
-            message: 'Sketch to comment is invalid'
-        });
-    }
+    var sketchId = req.params.sketchID;
 
     Sketchpad.findById(sketchId).exec(function (err, sketch) {
         if (err) {
             return err;
         }
+        console.log(sketch);
+
         var result =[];
         var commentsList = sketch.comments;
         for (var i = 0; i < commentsList.length; i++){
@@ -43,14 +39,9 @@ exports.show = function (req, res) {
 };
 
 exports.save = function (req, res) {
-    var sketchId = req.sketchID;
+    var sketchId = req.params.sketchID;
     var user = req.user;
 
-    if (!mongoose.Types.ObjectId.isValid(sketchId)) {
-        return res.status(400).send({
-            message: 'Sketch to comment is invalid'
-        });
-    }
     var newComment = new Comment ({
         userId: user._id,
         sketchId: sketchId,

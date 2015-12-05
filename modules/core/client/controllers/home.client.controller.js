@@ -29,7 +29,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     $scope.goToComment = function(id) {
       $state.go('sketch-comment', {
-        sketckId: id
+        sketchId: id
       });
     }
 

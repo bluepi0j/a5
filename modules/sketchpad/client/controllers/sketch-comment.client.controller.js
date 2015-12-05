@@ -6,7 +6,7 @@ angular.module('sketch').controller('SketchCommentController', ['$scope', 'Authe
         // This provides Authentication context.
         $scope.authentication = Authentication;
         $scope.title = undefined;
-        SketchCommentService.getOneSketchs($stateParams.sketckId).success(function(res){
+        SketchCommentService.getOneSketch($stateParams.sketchId).success(function(res){
         	//
         	$scope.sketch = res.data
         });
