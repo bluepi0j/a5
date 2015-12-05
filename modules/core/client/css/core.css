@@ -50,15 +50,16 @@ a:hover .header-profile-image {
 .flowGrid:after{
   clear:both;
 }
+
 .flowGridItem{
   list-style: none;
-  box-shadow: 0 0 5px grey;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1), -1px -1px 7px rgba(0, 0, 0, 0.1);
   margin-top: 15px;
 }
 
 .flowGridItem:hover {
   list-style: none;
-  box-shadow: 0 0 15px grey;
+  box-shadow: 3px 3px 9px rgba(0, 0, 0, 0.3), -1px -1px 4px rgba(0, 0, 0, 0.3);
   -ms-transform: scale(1.04,1.04); /* IE 9 */
   -webkit-transform: scale(1.04,1.04); /* Safari */
   transform: scale(1.04,1.04); /* Standard syntax */

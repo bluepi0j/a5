@@ -1,16 +1,21 @@
 'use strict';
 
 angular.module('sketch').controller('SketchCommentController', ['$scope', 'Authentication',
-    'FileUploader', 'SketchNewService', '$state','$window', 'SketchCommentService', '$stateParams',
-    function ($scope, Authentication, FileUploader, SketchNewService, $state, $window, SketchCommentService, $stateParams) {
+    'SketchNewService', '$state','$window', 'SketchCommentService', '$stateParams',
+    function ($scope, Authentication, SketchNewService, $state, $window, SketchCommentService, $stateParams) {
         // This provides Authentication context.
         $scope.authentication = Authentication;
         $scope.title = undefined;
 
         SketchCommentService.getOneSketch($stateParams.sketchId).success(function(res){
-            console.log(res);
-        	$scope.sketch = res.data
+        	$scope.sketch = res;
         });
+
+        SketchCommentService.getAveRate($stateParams.sketchId).success(function(res) {
+            console.log(res);
+            $scope.aveRate = res;
+        })
+
 
     }
 ]);
