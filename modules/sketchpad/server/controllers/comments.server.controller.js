@@ -13,7 +13,6 @@ var path = require('path'),
 
 exports.show = function (req, res) {
     var sketchId = req.params.sketchID;
-
     Sketchpad.findById(sketchId).exec(function (err, sketch) {
         if (err) {
             return err;
@@ -21,19 +20,35 @@ exports.show = function (req, res) {
         console.log(sketch);
 
         var result =[];
-        var commentsList = sketch.comments;
-        for (var i = 0; i < commentsList.length; i++){
-            Comment.findById(commentsList[i]).exec (function (err, comment){
+
+        //for (var i = 0; i < commentsList.length; i++){
+        //    Comment.findById(commentsList[i]).exec (function (err, comment){
+        //        if (err){
+        //            return err;
+        //        }if (!comment){
+        //            console.log('no comment found with such id!');
+        //        } else{
+        //            result.push(comment);
+        //        }
+        //    });
+        //}
+        //res.json(result);
+        sketch.comments.forEach(function(entry, index, list){
+            Comment.findById(entry).exec(function(err,comment) {
                 if (err){
-                    return err;
-                }if (!comment){
-                    console.log('no comment found with such id!');
-                } else{
-                    result.push(comment);
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                }
+                //if(!user){
+                //    console.log("cannot find the user with id: " + sketchs[i].authorId);
+                result.push(comment);
+                if (index == list.length - 1){
+                    res.json(result);
                 }
             });
-        }
-        res.json(result);
+
+        });
     });
 
 };
@@ -43,9 +58,10 @@ exports.save = function (req, res) {
     var user = req.user;
 
     var newComment = new Comment ({
+        username: user.displayName,
         userId: user._id,
         sketchId: sketchId,
-        text: req.text,
+        text: req.text
     });
     Sketchpad.findById(sketchId).exec(function (err, sketch) {
         if (err) {
@@ -57,7 +73,7 @@ exports.save = function (req, res) {
                     message: errorHandler.getErrorMessage(err)
                 });
             }
-            sketch.newcomment = true;
+            sketch.newComment = true;
             sketch.comments.push(newComment._id);
             sketch.save(function(err){
                 if (err) {

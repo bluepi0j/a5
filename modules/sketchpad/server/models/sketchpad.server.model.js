@@ -33,10 +33,19 @@ var SketchpadSchema = new Schema({
         default: Date.now
     },
     comments: [],
-    newcomment: {
+    newComment: {
         type: Boolean,
         default: false
+    },
+    rating: {
+        type: Number,
+        default:0
+    },
+    ratedTimes: {
+        type: Number,
+        default: 0
     }
+
 });
 
 

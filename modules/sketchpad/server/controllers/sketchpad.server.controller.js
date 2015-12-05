@@ -31,6 +31,33 @@ var path = require('path'),
 //    });
 //};
 
+
+/**
+ * Find the sketch by id.
+ */
+exports.findSketchById = function(req, res) {
+    var id = req.params.sketchId;
+    Sketchpad.find({_Id: id}).exec(function (err, sketch) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        }
+        User.findById(sketch.authorId).exec(function(err,user) {
+            if (err){
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            }
+            sketch.author = user.displayName;
+            sketch.authorImageURL = user.profileImageURL;
+            res.json(sketch);
+        });
+    });
+}
+/**
+ * Show all sketchs of a user according to user's id.
+ */
 exports.showById = function(req, res) {
     var id = req.params.userId;
     Sketchpad.find({authorId: id}).exec(function (err, sketchs) {
@@ -66,7 +93,7 @@ exports.showById = function(req, res) {
 }
 
 /**
- * Show all
+ * Show all sketch with the corresponding user info
  */
 exports.showAll = function (req, res) {
     Sketchpad.find().sort('-created').exec(function(err, sketchs) {
@@ -120,12 +147,11 @@ exports.showAll = function (req, res) {
     });
 };
 
-
-
+/**
+ * Save the new sketch into database
+ */
 exports.save = function (req, res) {
     var user = req.user;
-
-
     //console.log(req.body);
     var data = req.body.dataURL.replace(/^data:image\/\w+;base64,/, "");
     var buf = new Buffer(data, 'base64');
