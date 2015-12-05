@@ -16,14 +16,14 @@ var SketchpadSchema = new Schema({
     title: {
         type: String
     },
+    authorId:{
+        type: String
+    },
     author: {
         type: String
     },
-    authorImageURL:{
-        type:String
-    },
-    authorID:{
-        type: Object
+    authorImageURL: {
+        type: String
     },
     sketchImageURL: {
         type:String
