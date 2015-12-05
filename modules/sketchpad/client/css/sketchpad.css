@@ -77,6 +77,11 @@ body {
 }
 
 .comment {
-    border-style: solid;
-    border-top: thick #ff0000;
+    /*border-style: solid none none none;*/
+    border-top: 1px solid grey;
+}
+
+.comment-list {
+    /*border-style: solid none none none;*/
+    border-top: 1px dashed grey;
 }

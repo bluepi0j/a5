@@ -5,33 +5,40 @@
         <div>
             <span>
             <h2 style="text-align: center">{{sketch.title}}</h2>
-            <span><strong>Average Rate:</strong> <uib-rating ng-model="sketch.rating" max="max" readonly="true"
+            <span><strong>Average Rate:</strong> <uib-rating ng-model="sketch.avgRating" max="max" readonly="true"
                                                              on-hover="hoveringOver(value)"
                                                              on-leave="overStar = null" titles="['one','two','three']"
                                                              aria-labelledby="default-rating"></uib-rating></span>
             </span>
             <img ng-src="{{sketch.sketchImageURL}}">
         </div>
-        <strong>Your Rate:</strong><uib-rating ng-model="myRate" max="max" readonly="alreadyRated" on-hover="hoveringOver(value)"
+        <strong>Your Rate:</strong>
+        <uib-rating ng-model="myRate" max="max" readonly="alreadyRated" on-hover="hoveringOver(value)"
                     on-leave="overStar = null" titles="['one','two','three']"
                     aria-labelledby="default-rating" ng-click="saveRate()"></uib-rating>
         <span class="label"
               ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}"
               ng-show="overStar && !isReadonly">{{percent}}%</span>
         <span ng-show="message" style="color:red">{{message}}</span>
+        <br>
 
         <div class="comment">
             <div>
-                <label for="title">Comment</label>
-                <input type="text" id="title" name="title" class="form-control" ng-model="title"
-                       placeholder="Please write the title" required>
+                <label for="text">Comment</label>
+                <input type="text" id="text" name="text" class="form-control" ng-model="text"
+                       placeholder="Please comment here" required>
+                <button class="btn btn-primary" ng-click="addNewComment()">Add</button>
             </div>
-            <ul ng-repeat="comment in comments">
-                <li>
+            <div>
+                <ul ng-repeat="comment in comments">
+                    <li class="comment-list">
+                        {{comment.username}}
+                        {{comment.profileImageURL}}
+                        {{comment.text}}
 
-                </li>
-            </ul>
-
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </section>

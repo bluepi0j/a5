@@ -15,6 +15,7 @@ angular.module('sketch').controller('SketchCommentController', ['$scope', 'Authe
 
 
         SketchCommentService.getAllComment($stateParams.sketchId).success(function (res) {
+            console.log(res);
             $scope.comments = res;
         })
 
@@ -35,10 +36,18 @@ angular.module('sketch').controller('SketchCommentController', ['$scope', 'Authe
         };
 
         $scope.saveRate = function () {
-            var data = {rate: $scope.myRate}
+            var data = {rate: $scope.myRate};
             SketchCommentService.saveNewRate(data, $stateParams.sketchId).success(function (res) {
                 $scope.message = "Rate Success!";
                 $scope.alreadyRated = true;
+            })
+        }
+
+        $scope.addNewComment = function () {
+            var data = {text: $scope.text};
+            SketchCommentService.addNewComment(data, $stateParams.sketchId).success(function (res) {
+                console.log(res);
+                location.reload();
             })
         }
 

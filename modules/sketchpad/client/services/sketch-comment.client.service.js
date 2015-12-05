@@ -34,5 +34,13 @@ angular.module('sketch').service('SketchCommentService', function ($http) {
         })
     }
 
+    service.addNewComment = function (data, sketchId) {
+        return $http({
+            url: '../api/comments/save/' + sketchId,
+            method: 'POST',
+            data: JSON.stringify(data)
+        })
+    }
+
      return service;
 })

@@ -64,12 +64,13 @@ exports.show = function (req, res) {
 exports.save = function (req, res) {
     var sketchId = req.params.sketchId;
     var user = req.user;
+    var text = req.body.text;
 
     var newComment = new Comment({
         username: user.displayName,
         userId: user._id,
         sketchId: sketchId,
-        text: req.text
+        text: text
     });
     Sketchpad.findById(sketchId).exec(function (err, sketch) {
         if (err) {
