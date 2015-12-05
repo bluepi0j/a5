@@ -21,7 +21,6 @@ exports.showUserRatingBySketchId = function (req, res) {
         if (err) {
             return err;
         }
-        console.log(rating);
 
         res.json(rating);
     });
@@ -35,15 +34,14 @@ exports.showUserRatingBySketchId = function (req, res) {
 exports.rateBySketchId = function (req, res) {
     var sketchId = req.params.sketchId;
     var user = req.user;
-    var myRating = req.params.rate;
+    var myRating = req.body.rate;
 
     Rating.find({sketchId:sketchId, userId:user._id}).exec(function (err, rating) {
         if (err) {
             return err;
         }
-        console.log(rating);
 
-        if(!rating){
+        if(rating.length == 0){
 
             var newRating = new Comment ({
                 userId: user._id,

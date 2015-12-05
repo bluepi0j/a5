@@ -11,7 +11,7 @@ angular.module('sketch').service('SketchCommentService', function ($http) {
         })
     }
 
-    service.getAveRate = function (sketchId) {
+    service.getMyRate = function (sketchId) {
 
         return $http({
             url: '../api/rating/show/' + sketchId,
@@ -19,5 +19,13 @@ angular.module('sketch').service('SketchCommentService', function ($http) {
         })
     }
 
-    return service;
+    service.saveNewRate = function (data, sketchId) {
+        return $http({
+            url: '../api/rating/save/' + sketchId,
+            method: 'POST',
+            data: JSON.stringify(data)
+        })
+    }
+
+     return service;
 })

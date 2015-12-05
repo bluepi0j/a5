@@ -3,10 +3,19 @@
 
     <div class="container-comment">
         <div>
+            <span>
             <h2 style="text-align: center">{{sketch.title}}</h2>
+            <span><string>Average Rate:</string> <uib-rating ng-model="sketch.rating" max="max" readonly="true" on-hover="hoveringOver(value)"
+                        on-leave="overStar = null" titles="['one','two','three']"
+                        aria-labelledby="default-rating"></uib-rating></span>
+            </span>
             <img ng-src="{{sketch.sketchImageURL}}">
         </div>
-
+        <uib-rating ng-model="myRate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)"
+                    on-leave="overStar = null" titles="['one','two','three']"
+                    aria-labelledby="default-rating" ng-click="saveRate()"></uib-rating>
+        <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+        <span ng-show="message" style="color:red">{{message}}</span>
         <div>
             <!--<ul ng-repeat=""></ul>-->
             <!--<li>-->
@@ -15,4 +24,3 @@
         </div>
     </div>
 </section>
-{{sketch.sketchImageURL}}
