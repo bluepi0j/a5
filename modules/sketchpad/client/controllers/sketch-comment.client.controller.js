@@ -6,9 +6,11 @@ angular.module('sketch').controller('SketchCommentController', ['$scope', 'Authe
         // This provides Authentication context.
         $scope.authentication = Authentication;
         $scope.title = undefined;
+
         SketchCommentService.getOneSketch($stateParams.sketchId).success(function(res){
-        	//
+            console.log(res);
         	$scope.sketch = res.data
         });
+
     }
 ]);

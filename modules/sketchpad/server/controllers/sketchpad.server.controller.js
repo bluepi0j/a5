@@ -37,12 +37,14 @@ var path = require('path'),
  */
 exports.findSketchById = function(req, res) {
     var id = req.params.sketchId;
-    Sketchpad.find({_Id: id}).exec(function (err, sketch) {
+
+    Sketchpad.findById(id).exec(function (err, sketch) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         }
+        
         User.findById(sketch.authorId).exec(function(err,user) {
             if (err){
                 return res.status(400).send({

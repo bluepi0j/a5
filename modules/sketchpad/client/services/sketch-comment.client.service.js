@@ -6,9 +6,10 @@ angular.module('sketch').service('SketchCommentService', function ($http) {
 
     service.getOneSketch = function (sketchId) {
         return $http({
-            url: '../api/comments/show/' + sketchId,
+            url: '../api/sketchpad/find/' + sketchId,
             method: 'GET'
         })
     }
+
     return service;
 })
