@@ -31,7 +31,7 @@ exports.findSketchById = function(req, res) {
                     message: errorHandler.getErrorMessage(err)
                 });
             }
-            sketch.author = user.displayName;
+            //sketch.author = user.displayName;
             sketch.authorImageURL = user.profileImageURL;
             res.json(sketch);
         });
@@ -101,7 +101,7 @@ exports.showById = function(req, res) {
                 //    console.log("cannot find the user with id: " + sketchs[i].authorId);
                 //}else{
                 //console.log("sketchs------" + entry);
-                entry.author = user.displayName;
+                //entry.author = user.displayName;
                 entry.authorImageURL = user.profileImageURL;
                 result.push(entry);
                 //console.log("!!!!!!!!result: " + result);
@@ -156,7 +156,7 @@ exports.showAll = function (req, res) {
                 //    console.log("cannot find the user with id: " + sketchs[i].authorId);
                 //}else{
                 //console.log("sketchs------" + entry);
-                entry.author = user.displayName;
+                //entry.author = user.displayName;
                 entry.authorImageURL = user.profileImageURL;
                 result.push(entry);
                 if (result.length == list.length){
@@ -184,7 +184,7 @@ exports.save = function (req, res) {
         if(err) throw err;
         var sketchpad = new Sketchpad({
             title:req.body.title,
-            //author:user.displayName,
+            author:user.displayName,
             //authorImageURL:user.profileImageURL,
             authorId:user._id,
             sketchImageURL: config.uploads.sketchSave.dest + filename,

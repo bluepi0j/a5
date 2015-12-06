@@ -93,7 +93,9 @@ exports.save = function (req, res) {
                     message: errorHandler.getErrorMessage(err)
                 });
             }
-            sketch.newComment = true;
+            if (newComment.userId != sketch.authorId){
+                sketch.newComment = true;
+            }
             sketch.comments.push(newComment._id);
             sketch.save(function (err) {
                 if (err) {
