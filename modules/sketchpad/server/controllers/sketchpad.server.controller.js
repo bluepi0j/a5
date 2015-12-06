@@ -282,7 +282,7 @@ exports.save = function (req, res) {
     var data = req.body.dataURL.replace(/^data:image\/\w+;base64,/, "");
     var buf = new Buffer(data, 'base64');
 
-    const filename = crypto.randomBytes(16).toString('hex') + Date.now();
+    var filename = crypto.randomBytes(16).toString('hex') + Date.now();
 
     fs.writeFile(config.uploads.sketchSave.dest + filename, buf, function(err){
         if(err) throw err;
