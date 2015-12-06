@@ -10,8 +10,8 @@ var express = require('express'),
     MongoStore = require('connect-mongo')(session),
     flash = require('connect-flash'),
 //methodOverride = require('method-override'),
-    bodyParser = require('body-parser');
-
+    bodyParser = require('body-parser'),
+    helmet = require('helmet'); //helmet module to handle security issues
 
 
 
@@ -98,6 +98,23 @@ module.exports.initViewEngine = function (app) {
     app.set('views', './');
 };
 
+/**
+ * Configure Helmet headers configuration
+ */
+module.exports.initHelmetHeaders = function (app) {
+    // Use helmet to secure Express headers
+    var SIX_MONTHS = 15778476000;
+    app.use(helmet.xframe());
+    app.use(helmet.xssFilter());
+    app.use(helmet.nosniff());
+    app.use(helmet.ienoopen());
+    app.use(helmet.hsts({
+        maxAge: SIX_MONTHS,
+        includeSubdomains: true,
+        force: true
+    }));
+    app.disable('x-powered-by');
+};
 
 /**
  * Configure Express session
@@ -195,5 +212,7 @@ module.exports.init = function (db) {
     this.initModulesServerRoutes(app);
     this.initModulesServerPolicies(app);
     this.initErrorRoutes(app);
+    // Init helmet headers
+    this.initHelmetHeaders(app);
     return app;
 };

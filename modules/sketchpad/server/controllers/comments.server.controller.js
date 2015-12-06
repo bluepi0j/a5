@@ -72,6 +72,7 @@ exports.show = function (req, res) {
  *Create a comment for a sketch, update sketch new comment flag
  */
 exports.save = function (req, res) {
+    console.log(req);
     var sketchId = req.params.sketchId;
     var user = req.user;
     var text = req.body.text;
