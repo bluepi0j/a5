@@ -61,7 +61,7 @@ angular.module('sketch').controller('SketchCommentController', ['$scope', 'Authe
                 sketchId: $scope.sketch._id,
             };
             UserCollectionsService.collect(data).success(function (res) {
-                $scope.collectMessage = res;
+                $scope.collectMessage = res.message;
             })
 
         }

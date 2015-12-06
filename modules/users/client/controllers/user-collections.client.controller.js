@@ -11,7 +11,7 @@ angular.module('users').controller('UserCollectionsController', ['$scope', 'Auth
         UserCollectionsService.showCollections().success(function (res) {
             console.log(res);
             if (res.length == 0) {
-                $scope.message = "No Sketch!"
+                $scope.message = "You Haven't Sketch Anything!"
             }
 
             $scope.sketchList = res;

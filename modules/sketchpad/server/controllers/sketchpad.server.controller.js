@@ -163,8 +163,12 @@ exports.showById = function(req, res) {
 exports.myCollection = function(req, res) {
     var user = req.user;
     var result = [];
+    if (user.collections.length == 0) {
+        return res.json(result);
+    }
     user.collections.forEach(function(entry, index, list){
         Sketchpad.findById(entry).exec(function(err, sketch){
+
             User.findById(sketch.authorId).exec(function(err,author) {
                 if (err) {
                     return res.status(400).send({
@@ -174,7 +178,7 @@ exports.myCollection = function(req, res) {
                 sketch.author = author.displayName;
                 sketch.authorImageURL = author.profileImageURL;
                 result.push(sketch);
-                //console.log("!!!!!!!!result: " + result);
+
                 if (result.length == list.length) {
                     res.json(result);
                 }
