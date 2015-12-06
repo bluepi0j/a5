@@ -38,6 +38,9 @@ angular.module('core').controller('NotificationController', ['$scope', '$state',
                         for (var i = 0; i < popedList.length;i++ ){
                             if(notiList.indexOf(popedList[i])<0){
                                 helperList.push(popedList[i]);
+                            }else{
+                                var done = notiList.indexOf(popedList[i]);
+                                notiList.slice(done, done+1);
                             }
                         }
                         while (notiList.length != 0) {
@@ -53,10 +56,11 @@ angular.module('core').controller('NotificationController', ['$scope', '$state',
 
                             popedList.push(item);
                         }
-                        for (i = 0; i < popedList.length; i++){
-                            if (helperList.indexOf(popedList[i])>=0){
-                                popedList.slice(i,i+1);
-                                i--;
+                        for (var j = 0; j < popedList.length; j++){
+                            console.log("last for loop one iteration");
+                            if (helperList.indexOf(popedList[j])>=0){
+                                popedList.slice(j,j+1);
+                                j--;
                             }
                         }
 
