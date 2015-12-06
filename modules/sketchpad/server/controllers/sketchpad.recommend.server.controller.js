@@ -132,7 +132,7 @@ exports.recommendByRatedTimes = function (req, res) {
         }
         var result =[];
 
-        if (sketch == 0) {
+        if (sketchs.length == 0) {
             res.json(result);
         } else {
             sketchs.forEach(function(entry, index, list){
