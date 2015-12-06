@@ -59,8 +59,8 @@ function reportSuccess (password) {
             if (seedOptions.logResults) {
                 console.log(chalk.bold.red('Database Seeding:\t\t\tLocal ' + user.username + ' added with password set to ' + password));
                 console.log(chalk.bold.red('Please use following username and password to login '));
-                console.log(chalk.bold.red('username: ' + user.username + '.'));
-                console.log(chalk.bold.red('password: ' + password + '.'));
+                console.log(chalk.bold.red('username: ' + user.username));
+                console.log(chalk.bold.red('password: ' + password));
 
 
             }

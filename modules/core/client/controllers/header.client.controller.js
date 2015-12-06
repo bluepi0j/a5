@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus','$window',
+angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus',
+  '$window',
   function ($scope, $state, Authentication, Menus, $window) {
     // Expose view variables
     $scope.$state = $state;
@@ -24,5 +25,6 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
       $window.location.href = '/';
       $state.reload();
     }
+
   }
 ]);

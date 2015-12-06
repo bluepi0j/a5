@@ -8,7 +8,7 @@ module.exports = function (app) {
     var recommend = require('../controllers/sketchpad.recommend.server.controller');
 
     // Setting up the sketchpad api
-    app.route('/api/sketchpad/recommend/addinterest').put(recommend.learnInterest);
+    app.route('/api/sketchpad/recommend/addinterest/:titleString').put(recommend.learnInterest);
     app.route('/api/sketchpad/recommend/interest').get(recommend.recommend);
     app.route('/api/sketchpad/recommend/rating').get(recommend.recommendByRating);
     app.route('/api/sketchpad/recommend/ratedtimes').get(recommend.recommendByRatedTimes);

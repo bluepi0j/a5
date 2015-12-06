@@ -6,7 +6,7 @@ angular.module('sketch').service('SketchRecommendService', function ($http) {
 
     service.getUserRecommend = function () {
         return $http({
-            url: '..api/sketchpad/recommend',
+            url: '../api/sketchpad/recommend/interest',
             method: 'GET',
         })
     }

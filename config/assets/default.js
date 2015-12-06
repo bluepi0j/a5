@@ -7,7 +7,8 @@ module.exports = {
         lib: {
             css: [
                 'public/lib/bootstrap/dist/css/bootstrap.css',
-                'public/lib/bootstrap/dist/css/bootstrap-theme.css'
+                'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+                'public/lib/AngularJS-Toaster/toaster.min.css'
             ],
             js: [
                 'public/lib/angular/angular.js',
@@ -21,6 +22,7 @@ module.exports = {
                 'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
                 'public/lib/ngFlowGrid/src/ngFlowGrid.js',
                 'public/lib/angular-canvas-painter/dist/angular-canvas-painter.js',
+                'public/lib/AngularJS-Toaster/toaster.min.js'
             ],
             tests: ['node-modules/angular-mocks/angular-mocks.js']
         },

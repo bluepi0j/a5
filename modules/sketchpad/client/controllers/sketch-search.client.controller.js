@@ -45,8 +45,6 @@ angular.module('sketch').controller('SketchSearchController', ['$scope', 'Authen
         }
 
         $scope.goToComment = function(id) {
-            console.log(id);
-            debugger;
             $state.go('sketch-comment', {
                 sketchId: id
             });

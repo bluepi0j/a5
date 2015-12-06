@@ -9,8 +9,10 @@ angular.module('sketch').controller('SketchRecommmendController', ['$scope', 'Au
         $scope.title = undefined;
 
         SketchRecommendService.getUserRecommend().success(function(res) {
-            console.log(res);
             $scope.sketchList = res;
+            if (res.length == 0) {
+                $scope.message = "No Recommended for you!";
+            }
         })
 
         $scope.goToComment = function(id) {
