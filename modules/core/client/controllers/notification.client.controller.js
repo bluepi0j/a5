@@ -11,14 +11,14 @@ angular.module('core').controller('NotificationController', ['$scope', '$state',
 
 
 
-        //var inA = function(item, list) {
-        //    for (var i = 0; i < list.length; i++) {
-        //        if (item._id == list[i]._id) {
-        //            return true;
-        //        }
-        //    }
-        //    return false
-        //}
+        var inA = function(item, list) {
+            for (var i = 0; i < list.length; i++) {
+                if (item._id == list[i]._id) {
+                    return i;
+                }
+            }
+            return -1
+        }
 
         //$scope.pop = function(){
         //  console.log("asdas");
@@ -35,19 +35,20 @@ angular.module('core').controller('NotificationController', ['$scope', '$state',
                     if (res.length != 0) {
                         var helperList = [];
                         notiList = res;
-                        for (var i = 0; i < popedList.length;i++ ){
-                            if(notiList.indexOf(popedList[i])<0){
+
+                        for (var i = 0; i < popedList.length; i++ ){
+                            if(inA(popedList[i], notiList) < 0){
                                 helperList.push(popedList[i]);
                             }else{
-                                var done = notiList.indexOf(popedList[i]);
-                                notiList.slice(done, done+1);
+                                var done = inA(popedList[i], notiList)
+                                notiList.splice(done, done+1);
                             }
                         }
                         while (notiList.length != 0) {
                             var item = notiList.pop();
                             toaster.pop('success', "Comment", 'There is one comment for your (' + item.title + ')',
-                                5000, 'trustedHtml', function(toaster) {
-                                console.log("test");
+                                25000, 'trustedHtml', function(toaster) {
+                                //console.log("test");
                                 $state.go("sketch-comment", {
                                     sketchId: item._id,
                                 });
@@ -58,8 +59,8 @@ angular.module('core').controller('NotificationController', ['$scope', '$state',
                         }
                         for (var j = 0; j < popedList.length; j++){
                             console.log("last for loop one iteration");
-                            if (helperList.indexOf(popedList[j])>=0){
-                                popedList.slice(j,j+1);
+                            if (inA(popedList[j], helperList) >= 0){
+                                popedList.splice(j, j+1);
                                 j--;
                             }
                         }
@@ -69,7 +70,7 @@ angular.module('core').controller('NotificationController', ['$scope', '$state',
             }
         }
 
-        $interval($scope.checkNoti, 9000);
+        $interval($scope.checkNoti, 1000);
 
 
     }

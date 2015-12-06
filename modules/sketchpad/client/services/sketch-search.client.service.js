@@ -9,8 +9,6 @@ angular.module('sketch').service('SketchSearchService', function ($http) {
             var searchdata = searchstring.replace(/\s/g, '');
         }
 
-        $http.put('../api/sketchpad/recommend/addinterest/' + searchdata, {});
-
         return $http({
             url: '../api/search/user/' + searchdata,
             method: 'GET'
