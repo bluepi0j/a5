@@ -25,14 +25,14 @@ exports.findSketchById = function(req, res) {
             });
         }
         
-        User.findById(sketch.authorId).exec(function(err,user) {
+        User.findById(sketch.authorId).exec(function(err,author) {
             if (err){
                 return res.status(400).send({
                     message: errorHandler.getErrorMessage(err)
                 });
             }
-            sketch.author = user.displayName;
-            sketch.authorImageURL = user.profileImageURL;
+            sketch.author = author.displayName;
+            sketch.authorImageURL = author.profileImageURL;
             res.json(sketch);
         });
     });
@@ -57,14 +57,24 @@ exports.checkNewComment = function(req, res) {
  * Add a sketch to user's collection.
  */
 exports.collect = function(req, res) {
+    console.log('!!!hi!!!!' + req.user);
     var user = req.user;
     var sketchId = req.body.sketchId;
-    if (user.collections.indexof(sketchId) <0){
+    if (user.collections.indexOf(sketchId) <0){
+        console.log('!!!hi!!!<<<<<<<!!!');
         user.collections.push (sketchId);
-        res.send({
-            message: 'Success'
+        user.save(function (err) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            }
+            res.send({
+                message: 'Success'
+            });
         });
     }else{
+        console.log('!!!hi!!!!>>>??????');
         res.send({
             message: 'Already collected'
         });
@@ -88,7 +98,7 @@ exports.readComment = function(req, res) {
                     message: errorHandler.getErrorMessage(err)
                 });
             }
-            if(sketch.authorId = user._id){
+            if(sketch.authorId == user._id){
                 sketch.newComment = false;
                 sketch.save(function(err){
                     if (err) {
@@ -123,7 +133,7 @@ exports.showById = function(req, res) {
         }
         var result =[];
         sketchs.forEach(function(entry, index, list){
-            User.findById(entry.authorId).exec(function(err,user) {
+            User.findById(entry.authorId).exec(function(err,author) {
                 if (err){
                     return res.status(400).send({
                         message: errorHandler.getErrorMessage(err)
@@ -133,8 +143,8 @@ exports.showById = function(req, res) {
                 //    console.log("cannot find the user with id: " + sketchs[i].authorId);
                 //}else{
                 //console.log("sketchs------" + entry);
-                entry.author = user.displayName;
-                entry.authorImageURL = user.profileImageURL;
+                entry.author =author.displayName;
+                entry.authorImageURL = author.profileImageURL;
                 result.push(entry);
                 //console.log("!!!!!!!!result: " + result);
                 if (result.length == list.length){
@@ -155,14 +165,14 @@ exports.myCollection = function(req, res) {
     var result = [];
     user.collections.forEach(function(entry, index, list){
         Sketchpad.findById(entry).exec(function(err, sketch){
-            User.findById(sketch.authorId).exec(function(err,user) {
+            User.findById(sketch.authorId).exec(function(err,author) {
                 if (err) {
                     return res.status(400).send({
                         message: errorHandler.getErrorMessage(err)
                     });
                 }
-                sketch.author = user.displayName;
-                sketch.authorImageURL = user.profileImageURL;
+                sketch.author = author.displayName;
+                sketch.authorImageURL = author.profileImageURL;
                 result.push(sketch);
                 //console.log("!!!!!!!!result: " + result);
                 if (result.length == list.length) {
@@ -204,7 +214,7 @@ exports.showAll = function (req, res) {
         //    });
         //}
         sketchs.forEach(function(entry, index, list){
-            User.findById(entry.authorId).exec(function(err,user) {
+            User.findById(entry.authorId).exec(function(err,author) {
                 if (err){
                     return res.status(400).send({
                         message: errorHandler.getErrorMessage(err)
@@ -214,8 +224,8 @@ exports.showAll = function (req, res) {
                 //    console.log("cannot find the user with id: " + sketchs[i].authorId);
                 //}else{
                 //console.log("sketchs------" + entry);
-                entry.author = user.displayName;
-                entry.authorImageURL = user.profileImageURL;
+                entry.author = author.displayName;
+                entry.authorImageURL = author.profileImageURL;
                 result.push(entry);
                 if (result.length == list.length){
                     res.json(result);

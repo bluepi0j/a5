@@ -17,25 +17,11 @@ var path = require('path'),
 exports.show = function (req, res) {
     var sketchId = req.params.sketchId;
     var result = [];
-    var lastIteration;
     Sketchpad.findById(sketchId).exec(function (err, sketch) {
         if (err) {
             return err;
         }
 
-
-        //for (var i = 0; i < commentsList.length; i++){
-        //    Comment.findById(commentsList[i]).exec (function (err, comment){
-        //        if (err){
-        //            return err;
-        //        }if (!comment){
-        //            console.log('no comment found with such id!');
-        //        } else{
-        //            result.push(comment);
-        //        }
-        //    });
-        //}
-        //res.json(result);
         if (sketch.comments.length == 0) {
             res.json(result);
         } else {
