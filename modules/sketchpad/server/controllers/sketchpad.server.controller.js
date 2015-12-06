@@ -59,8 +59,8 @@ exports.checkNewComment = function(req, res) {
 exports.collect = function(req, res) {
     var user = req.user;
     var sketchId = req.body.sketchId;
-    if (user.collection.indexof(sketchId) <0){
-        user.collection.push (sketchId);
+    if (user.collections.indexof(sketchId) <0){
+        user.collections.push (sketchId);
         res.send({
             message: 'Success'
         });
@@ -153,7 +153,7 @@ exports.showById = function(req, res) {
 exports.myCollection = function(req, res) {
     var user = req.user;
     var result = [];
-    user.collection.forEach(function(entry, index, list){
+    user.collections.forEach(function(entry, index, list){
         Sketchpad.findById(entry).exec(function(err, sketch){
             User.findById(sketch.authorId).exec(function(err,user) {
                 if (err) {

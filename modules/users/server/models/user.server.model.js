@@ -64,7 +64,7 @@ var UserSchema = new Schema({
     default: ''
   },
   interest: [],
-  collection:[],
+  collections:[],
   salt: {
     type: String
   },
