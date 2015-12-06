@@ -22,6 +22,9 @@ var CommentSchema = new Schema({
     sketchId: {
         type: String
     },
+    userImageURL: {
+        type: String
+    },
     text: {
        type: String
     },

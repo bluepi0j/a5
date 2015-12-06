@@ -8,6 +8,7 @@ var path = require('path'),
     mongoose = require('mongoose'),
     config = require(path.resolve('./config/config')),
     Sketchpad = mongoose.model('Sketchpad'),
+    User = mongoose.model('User'),
     Comment = mongoose.model('Comment');
 
 /**
@@ -47,18 +48,24 @@ exports.show = function (req, res) {
                     }
                     //if(!user){
                     //    console.log("cannot find the user with id: " + sketchs[i].authorId);
-                    result.push(comment);
-                    if (result.length == list.length) {
-                        console.log("####length-1 = index = : " + index);
+                    User.findById(comment.userId).exec(function(err,user) {
+                        if (err) {
+                            return res.status(400).send({
+                                message: errorHandler.getErrorMessage(err)
+                            });
+                        }
+                        comment.userImageURL = user.profileImageURL;
+                        result.push(comment);
+                        if (result.length == list.length) {
+                            res.json(result);
+                        }
+                    });
 
-                        res.json(result);
-                    }
                 });
 
             });
         }
     });
-
 };
 
 /**
