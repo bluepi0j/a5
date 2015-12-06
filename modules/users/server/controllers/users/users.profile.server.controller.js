@@ -18,7 +18,6 @@ var _ = require('lodash'),
 exports.update = function (req, res) {
   // Init Variables
   var user = req.user;
-
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
 

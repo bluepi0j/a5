@@ -16,7 +16,6 @@ exports.changePassword = function (req, res, next) {
   // Init Variables
   var passwordDetails = req.body;
   var message = null;
-
   if (req.user) {
     if (passwordDetails.newPassword) {
       User.findById(req.user.id, function (err, user) {
