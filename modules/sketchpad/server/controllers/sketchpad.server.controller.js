@@ -37,6 +37,23 @@ exports.findSketchById = function(req, res) {
         });
     });
 }
+
+/**
+ * Check all sketchs of the user to see which ones have unread comments.
+ */
+exports.checkNewComment = function(req, res) {
+    var user = req.user;
+    Sketchpad.find({authorId: user._id, newComment:true}).exec(function (err, sketchs) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        }
+        res.json(sketchs);
+    });
+}
+
+
 /**
  * Show all sketchs of a user according to user's id.
  */
