@@ -23,7 +23,6 @@ exports.learnInterest = function (req,res) {
         user.interest.slice(0,1);
         user.push(keyword);
     }
-
 }
 
 /**
