@@ -48,8 +48,8 @@ module.exports = function (app) {
   //app.route('/api/auth/linkedin/callback').get(users.oauthCallback('linkedin'));
   //
   //// Setting the github oauth routes
-  //app.route('/api/auth/github').get(users.oauthCall('github'));
-  //app.route('/api/auth/github/callback').get(users.oauthCallback('github'));
+  app.route('/api/auth/github').get(users.oauthCall('github'));
+  app.route('/api/auth/github/callback').get(users.oauthCallback('github'));
   //
   //// Setting the paypal oauth routes
   //app.route('/api/auth/paypal').get(users.oauthCall('paypal'));
