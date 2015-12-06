@@ -53,6 +53,30 @@ exports.checkNewComment = function(req, res) {
     });
 }
 
+/**
+ * Read sketch's comments of the user, and reset the flag to false.
+ */
+exports.readComment = function(req, res) {
+    var sketch = req.body;
+    if(sketch == null){
+        return res.status(400).send({
+            message: 'No sketch object found'
+        });
+    }else{
+        sketch.newComment = false;
+        sketch.save(function(err){
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            }
+            res.send({
+                message: 'Success'
+            });
+        });
+    }
+}
+
 
 /**
  * Show all sketchs of a user according to user's id.
