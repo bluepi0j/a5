@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication','fgDelegate',"$timeout",
-  '$state', 'HomeSketchService','$interval', 'toaster',
-  function ($scope, Authentication, fgDelegate, $timeout, $state, HomeSketchService, $interval, toaster) {
+  '$state', 'HomeSketchService',
+  function ($scope, Authentication, fgDelegate, $timeout, $state, HomeSketchService) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
@@ -11,12 +11,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     })
 
 
-    //$scope.pop = function(){
-    //  console.log("asdas");
-    //  toaster.pop('success', "title", "text");
-    //};
-    //
-    //$interval($scope.pop, 1000);
 
     //$scope.pagedItems = $scope.items;
     //

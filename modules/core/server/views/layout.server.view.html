@@ -39,6 +39,9 @@
   <header ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
   <section class="content">
     <section class="container">
+      <div ng-controller="NotificationController">
+        <toaster-container></toaster-container>
+      </div>
       {% block content %}{% endblock %}
     </section>
   </section>
