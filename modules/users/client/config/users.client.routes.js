@@ -53,6 +53,13 @@ angular.module('users').config(['$stateProvider','$windowProvider',
           params: {
             userId: $windowProvider.$get().user._id,
           }
+        })
+        .state('user-collections', {
+            url: '/user/collections/:userId',
+            templateUrl: 'modules/users/client/views/user-collections.client.view.html',
+            params: {
+                userId: $windowProvider.$get().user._id,
+            }
         });
 
   }

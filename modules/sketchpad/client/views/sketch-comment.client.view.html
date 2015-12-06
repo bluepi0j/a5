@@ -10,6 +10,8 @@
                                                              on-leave="overStar = null" titles="['one','two','three']"
                                                              aria-labelledby="default-rating"></uib-rating></span>
             </span>
+            <button class="pull-right btn btn-success" ng-click="collect()">collect</button>
+            <p class="pull-right" style="color: red" ng-show="collectMessage">{{collectMessage}}</p>
             <img ng-src="{{sketch.sketchImageURL}}">
         </div>
         <strong>Your Rate:</strong>

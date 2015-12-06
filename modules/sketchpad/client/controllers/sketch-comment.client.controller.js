@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('sketch').controller('SketchCommentController', ['$scope', 'Authentication',
-    'SketchNewService', '$state', '$window', 'SketchCommentService', '$stateParams',
-    function ($scope, Authentication, SketchNewService, $state, $window, SketchCommentService, $stateParams) {
+    'SketchNewService', '$state', '$window', 'SketchCommentService', '$stateParams', 'UserCollectionsService',
+    function ($scope, Authentication, SketchNewService, $state, $window, SketchCommentService,
+              $stateParams, UserCollectionsService) {
         // This provides Authentication context.
         $scope.authentication = Authentication;
         $scope.title = undefined;
@@ -53,6 +54,16 @@ angular.module('sketch').controller('SketchCommentController', ['$scope', 'Authe
             SketchCommentService.addNewComment(data, $stateParams.sketchId).success(function (res) {
                 $state.reload();
             })
+        }
+
+        $scope.collect = function () {
+            var data = {
+                sketchId: $scope.sketch._id,
+            };
+            UserCollectionsService.collect(data).success(function (res) {
+                $scope.collectMessage = res;
+            })
+
         }
 
     }
