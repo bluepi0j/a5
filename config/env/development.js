@@ -38,8 +38,8 @@ module.exports = {
         title: defaultEnvConfig.app.title
     },
     facebook: {
-        clientID: "153187085038432",
-        clientSecret: "1bd465c21ff1351c5b7de29e6eddf841",
+        clientID: "152951165062024",
+        clientSecret: "4e5feadbe948ad44518e01e39330ace1",
         callbackURL: '/api/auth/facebook/callback'
     },
     twitter: {
