@@ -225,36 +225,52 @@ exports.showAll = function (req, res) {
  * Make a sketch post sticky.
  */
 exports.makeSticky = function (req, res) {
-    var sketch = req.body.sketch;
-    sketch.sticky = true;
-    sketch.save(function(err){
+    var id = req.body.sketch._id;
+    Sketchpad.findById(id).exec(function(err, result){
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         }
-        res.send({
-            message: 'Success'
+        result.sticky = true;
+        result.save(function(err){
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            }
+            res.send({
+                message: 'Success'
+            });
         });
     });
+
 };
 
 /**
  * Make a sketch post NOT sticky.
  */
 exports.removeSticky = function (req, res) {
-    var sketch = req.body.sketch;
-    sketch.sticky = false;
-    sketch.save(function(err){
+    var id = req.body.sketch._id;
+    Sketchpad.findById(id).exec(function(err, result){
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         }
-        res.send({
-            message: 'Success'
+        result.sticky = false;
+        result.save(function(err){
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            }
+            res.send({
+                message: 'Success'
+            });
         });
     });
+
 };
 
 /**
@@ -292,36 +308,6 @@ exports.save = function (req, res) {
 
     });
 
-    //var upload = multer(config.uploads.sketchSave).single('newSketch');
-    //var sketchSaveFileFilter = require(path.resolve('./config/lib/multer')).sketchSaveFileFilter;
-
-    // Filtering to upload only images
-    //upload.fileFilter = sketchSaveFileFilter;
-    //
-    //if (user) {
-    //    upload(req, res, function (uploadError) {
-    //        if(uploadError) {
-    //            return res.status(400).send({
-    //                message: 'Error occurred while saving sketch.'
-    //            });
-    //        } else {
-    //            sketchpad.profileImageURL = config.uploads.sketchSave.dest + req.file.filename;
-    //            sketchpad.save(function (saveError) {
-    //                if (saveError) {
-    //                    return res.status(400).send({
-    //                        message: errorHandler.getErrorMessage(saveError)
-    //                    });
-    //                } else {
-    //                   //when the sketch saved successfully
-    //                }
-    //            });
-    //        }
-    //    });
-    //} else {
-    //    res.status(400).send({
-    //        message: 'You must signed in to save your sketch'
-    //    });
-    //}
 };
 
 /**
