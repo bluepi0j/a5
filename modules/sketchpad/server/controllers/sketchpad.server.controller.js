@@ -31,7 +31,7 @@ exports.findSketchById = function(req, res) {
                     message: errorHandler.getErrorMessage(err)
                 });
             }
-            //sketch.author = user.displayName;
+            sketch.author = user.displayName;
             sketch.authorImageURL = user.profileImageURL;
             res.json(sketch);
         });
@@ -57,23 +57,37 @@ exports.checkNewComment = function(req, res) {
  * Read sketch's comments of the user, and reset the flag to false.
  */
 exports.readComment = function(req, res) {
-    var sketch = req.body;
-    if(sketch == null){
+    var sketchId = req.body.sketchId;
+    var user = req.user;
+    if(sketchId == null){
         return res.status(400).send({
             message: 'No sketch object found'
         });
     }else{
-        sketch.newComment = false;
-        sketch.save(function(err){
+        Sketchpad.findById(sketchId).exec(function(err, sketch){
             if (err) {
                 return res.status(400).send({
                     message: errorHandler.getErrorMessage(err)
                 });
             }
-            res.send({
-                message: 'Success'
-            });
+            if(sketch.authorId = user._id){
+                sketch.newComment = false;
+                sketch.save(function(err){
+                    if (err) {
+                        return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                        });
+                    }
+                    res.send({
+                        message: 'Success'
+                    });
+                });
+            }else{
+                console.log("Other user visiting sketch");
+            }
+
         });
+
     }
 }
 
@@ -101,7 +115,7 @@ exports.showById = function(req, res) {
                 //    console.log("cannot find the user with id: " + sketchs[i].authorId);
                 //}else{
                 //console.log("sketchs------" + entry);
-                //entry.author = user.displayName;
+                entry.author = user.displayName;
                 entry.authorImageURL = user.profileImageURL;
                 result.push(entry);
                 //console.log("!!!!!!!!result: " + result);
@@ -156,7 +170,7 @@ exports.showAll = function (req, res) {
                 //    console.log("cannot find the user with id: " + sketchs[i].authorId);
                 //}else{
                 //console.log("sketchs------" + entry);
-                //entry.author = user.displayName;
+                entry.author = user.displayName;
                 entry.authorImageURL = user.profileImageURL;
                 result.push(entry);
                 if (result.length == list.length){

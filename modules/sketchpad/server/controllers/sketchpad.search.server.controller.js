@@ -73,6 +73,7 @@ exports.searchUser = function(req,res){
                         message: errorHandler.getErrorMessage(err)
                     });
                 }
+                entry.author = user.displayName;
                 entry.authorImageURL = user.profileImageURL;
                 result.push(entry);
                 if (result.length == list.length){
