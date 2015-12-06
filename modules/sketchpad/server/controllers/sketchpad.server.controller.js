@@ -207,7 +207,7 @@ exports.showAll = function (req, res) {
                 entry.author = author.displayName;
                 entry.authorImageURL = author.profileImageURL;
                 if (entry.sticky == true){
-                    result.insert(0, entry);
+                    result.splice(0, 0, entry);
                 }else{
                     result.push(entry);
                 }
