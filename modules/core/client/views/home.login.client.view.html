@@ -20,6 +20,7 @@
 
         <ul class="flowGrid" id="demogrid">
             <li class="flowGridItem" ng-repeat="sketch in sketchList">
+                <div class="sticky" ng-if="sketch.sticky" ><strong>Pinned</strong></div>
                 <img ng-src="{{sketch.sketchImageURL}}" ng-click="goToComment(sketch._id)">
                 <div class="sketch-footer">
                     <img ng-src="{{sketch.authorImageURL}}" alt="{{sketch.author}}"
@@ -27,7 +28,9 @@
                     <span>{{sketch.author}}</span>
                 <p class="sketch-title"><strong>Title: </strong>{{sketch.title}}
                     <button class="btn btn-link pull-right" ng-show="authentication.user.roles.length >= 2"
-                            ng-click="stickySketch(sketch._id)">Sticky</button></p>
+                            ng-click="stickyOrUnsticky(sketch)"  ng-if="!sketch.sticky">Sticky</button>
+                    <button class="btn btn-link pull-right" ng-show="authentication.user.roles.length >= 2"
+                            ng-click="stickyOrUnsticky(sketch)" ng-if="sketch.sticky">Unsticky</button></p>
 
                     <!--<a class="btn" ng-click="cancelBack()">-->
                         <!--<i class="glyphicon glyphicon-comment"></i>-->

@@ -10,6 +10,27 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       $scope.sketchList = res.data;
     })
 
+    $scope.stickyOrUnsticky = function (sketch) {
+      if (sketch.sticky) {
+        sketch.sticky = false;
+        var data = {
+          sketch: sketch
+        }
+        HomeSketchService.unsticky(data).success(function (res) {
+          $state.reload();
+        })
+
+      } else {
+        sketch.sticky = true;
+        var data = {
+          sketch: sketch
+        }
+        HomeSketchService.sticky(data).success(function (res) {
+          $state.reload();
+        });
+      }
+
+    }
 
 
     //$scope.pagedItems = $scope.items;
