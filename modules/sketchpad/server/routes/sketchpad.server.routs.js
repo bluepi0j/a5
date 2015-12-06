@@ -15,5 +15,6 @@ module.exports = function (app) {
     app.route('/api/sketchpad/find/:sketchId').get(sketchpad.findSketchById);
     app.route('/api/sketchpad/notification/checknew').get(sketchpad.checkNewComment);
     app.route('/api/sketchpad/notification/readcomment').put(sketchpad.readComment);
-
+    app.route('/api/sketchpad/collection/collect').put(sketchpad.collect);
+    app.route('/api/sketchpad/collection/showcollection').get(sketchpad.myCollection);
 };

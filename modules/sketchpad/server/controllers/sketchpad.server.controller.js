@@ -54,6 +54,24 @@ exports.checkNewComment = function(req, res) {
 }
 
 /**
+ * Add a sketch to user's collection.
+ */
+exports.collect = function(req, res) {
+    var user = req.user;
+    var sketchId = req.body.sketchId;
+    if (user.collection.indexof(sketchId) <0){
+        user.collection.push (sketchId);
+        res.send({
+            message: 'Success'
+        });
+    }else{
+        res.send({
+            message: 'Already collected'
+        });
+    }
+}
+
+/**
  * Read sketch's comments of the user, and reset the flag to false.
  */
 exports.readComment = function(req, res) {
@@ -130,7 +148,33 @@ exports.showById = function(req, res) {
 }
 
 /**
- * Show all sketch with the corresponding user info
+ * Show all sketch artwork collection of a user according to user's id.
+ */
+exports.myCollection = function(req, res) {
+    var user = req.user;
+    var result = [];
+    user.collection.forEach(function(entry, index, list){
+        Sketchpad.findById(entry).exec(function(err, sketch){
+            User.findById(sketch.authorId).exec(function(err,user) {
+                if (err) {
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                }
+                sketch.author = user.displayName;
+                sketch.authorImageURL = user.profileImageURL;
+                result.push(sketch);
+                //console.log("!!!!!!!!result: " + result);
+                if (result.length == list.length) {
+                    res.json(result);
+                }
+            });
+        });
+    });
+}
+
+/**
+ * Show all sketch artworks
  */
 exports.showAll = function (req, res) {
     Sketchpad.find().sort('-created').exec(function(err, sketchs) {
