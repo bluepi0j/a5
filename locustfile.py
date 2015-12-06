@@ -4,9 +4,9 @@ class UserBehavior(TaskSet):
     def on_start(self):
         """ on_start is called when a Locust start before any task is scheduled """
         self.login()
-
+    @task(1)
     def login(self):
-        self.client.post("/login", {"username":"test", "password":"1234567890qQ!"})
+        self.client.post("/api/auth/signin", {"username":"test", "password":"1234567890qQ!"})
 
     @task(2)
     def index(self):
@@ -15,18 +15,20 @@ class UserBehavior(TaskSet):
     @task(1)
     def profile(self):
         self.client.get("/api/users/me")
-    @task(1)
-    def recommend(self):
-        self.client.get("/api/sketchpad/recommend/interest")
-    @task(1)
-    def rating(self):
-        self.client.get("/api/sketchpad/recommend/rating") 
-    @task(1)
-    def rated(self):
-        self.client.get("/api/sketchpad/recommend/ratedtimes") 
-    @task(1)
-    def rated(self):
-        self.client.get("/api/sketchpad/showall") 
+
+    # @task(1)
+    # def recommend(self):
+    #     self.client.get("/api/sketchpad/recommend/interest")
+    # @task(1)
+    # def rating(self):
+    #     self.client.get("/api/sketchpad/recommend/rating") 
+    # @task(1)
+    # def rated(self):
+    #     self.client.get("/api/sketchpad/recommend/ratedtimes") 
+
+    # @task(1)
+    # def rated(self):
+    #     self.client.get("/api/sketchpad/showall") 
     
 
 class WebsiteUser(HttpLocust):
