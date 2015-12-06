@@ -57,11 +57,15 @@ function reportSuccess (password) {
     return function (user) {
         return new Promise(function (resolve, reject) {
             if (seedOptions.logResults) {
-                console.log(chalk.bold.red('Database Seeding:\t\t\tLocal ' + user.username + ' added with password set to ' + password));
-                console.log(chalk.bold.red('Please use following username and password to login '));
-                console.log(chalk.bold.red('username: ' + user.username));
-                console.log(chalk.bold.red('password: ' + password));
-
+                console.log(chalk.bold.red('Welcome! System is creating a suparadmin account for you!'));
+                //console.log(chalk.bold.red('Password is generated for you'));
+                console.log(chalk.bold.red('Below are the username and password, you can change it later.'));
+                //console.log(chalk.bold.red('Database Seeding:\t\t\tLocal ' + user.username + ' added with password set to ' + password));
+                //console.log(chalk.bold.red('Please use following username and password to login '));
+                console.log(chalk.bold.yellow('----------------------------------------------------------'));
+                console.log(chalk.bold.yellow('      username: ' + user.username));
+                console.log(chalk.bold.yellow('      password: ' + password ));
+                console.log(chalk.bold.yellow('----------------------------------------------------------'));
 
             }
             resolve();
