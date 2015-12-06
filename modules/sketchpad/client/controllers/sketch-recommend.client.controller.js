@@ -1,27 +1,17 @@
 'use strict';
 
-angular.module('users').controller('UserSketchController', ['$scope', 'Authentication', '$state','$window',
-    '$stateParams', 'UserSketchService',
-    '$timeout','fgDelegate',
-    function ($scope, Authentication, $state, $window,
-              $stateParams, UserSketchService, $timeout, fgDelegate) {
+angular.module('sketch').controller('SketchRecommmendController', ['$scope', 'Authentication',
+    '$state','$window', '$stateParams', '$timeout', 'fgDelegate', 'SketchRecommendService',
+    function ($scope, Authentication, $state, $window, $stateParams,
+              $timeout, fgDelegate, SketchRecommendService) {
         // This provides Authentication context.
         $scope.authentication = Authentication;
-        $scope.user = undefined;
+        $scope.title = undefined;
 
-        UserSketchService.getUser($stateParams.userId).success(function (res) {
-            $scope.user = res;
-        })
-
-        UserSketchService.getUserSketchs($stateParams.userId).success(function (res) {
+        SketchRecommendService.getUserRecommend().success(function(res) {
             console.log(res);
-            if (res.length == 0) {
-                $scope.message = "No Sketch!"
-            }
-
             $scope.sketchList = res;
         })
-
 
         $scope.goToComment = function(id) {
             $state.go('sketch-comment', {
@@ -50,5 +40,6 @@ angular.module('users').controller('UserSketchController', ['$scope', 'Authentic
                 itemSelector:".flowGridItem", // item's className
             })
         },100);
+
     }
 ]);

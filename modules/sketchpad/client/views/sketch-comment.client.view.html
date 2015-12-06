@@ -25,9 +25,12 @@
         <div class="comment">
             <div>
                 <label for="text">Comment</label>
-                <input type="text" id="text" name="text" class="form-control" ng-model="text"
-                       placeholder="Please comment here" required>
-                <button class="btn btn-primary" ng-click="addNewComment()">Add</button>
+
+                <form>
+                    <input type="text" id="text" name="text" class="form-control" ng-model="text"
+                           placeholder="Please comment here" required>
+                    <button type="submit" class="btn btn-primary" ng-click="addNewComment()">Add</button>
+                </form>
             </div>
             <div>
                 <ul style="text-align:left" ng-repeat="comment in comments">

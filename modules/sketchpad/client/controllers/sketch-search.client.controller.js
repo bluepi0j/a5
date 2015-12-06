@@ -12,14 +12,15 @@ angular.module('sketch').controller('SketchSearchController', ['$scope', 'Authen
             $scope.search = $stateParams.search
            if ($stateParams.method == "title") {
                SketchSearchService.searchTitle($stateParams.search).success(function (res) {
-                   $scope.sketchList = res
+                   $scope.sketchList = res;
+
                    if (res.length == 0) {
                        $scope.message = "No Matches Found!";
                    }
                });
            } else {
                SketchSearchService.searchUser($stateParams.search).success(function (res) {
-                   $scope.sketchList = res
+                   $scope.sketchList = res;
                    if (res.length == 0) {
                        $scope.message = "No Matches Found!";
                    }
@@ -44,8 +45,10 @@ angular.module('sketch').controller('SketchSearchController', ['$scope', 'Authen
         }
 
         $scope.goToComment = function(id) {
+            console.log(id);
+            debugger;
             $state.go('sketch-comment', {
-                sketckId: id
+                sketchId: id
             });
         }
 

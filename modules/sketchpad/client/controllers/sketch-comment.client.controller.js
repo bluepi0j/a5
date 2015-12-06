@@ -51,8 +51,7 @@ angular.module('sketch').controller('SketchCommentController', ['$scope', 'Authe
         $scope.addNewComment = function () {
             var data = {text: $scope.text};
             SketchCommentService.addNewComment(data, $stateParams.sketchId).success(function (res) {
-                console.log(res);
-                location.reload();
+                $state.reload();
             })
         }
 

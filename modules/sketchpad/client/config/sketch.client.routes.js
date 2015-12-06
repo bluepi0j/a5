@@ -23,7 +23,10 @@ angular.module('sketch').config(['$stateProvider',
                     search: null,
                     method: null
                 }
-
+            })
+            .state('sketch-recommend', {
+                url: '/sketch/recommend',
+                templateUrl: 'modules/sketchpad/client/views/sketch-recommend.client.view.html',
             });
 
     }
