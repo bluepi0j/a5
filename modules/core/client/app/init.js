@@ -12,7 +12,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
   }
 ]);
 
-angular.module(ApplicationConfiguration.applicationModuleName).run(function ($rootScope, $state, Authentication) {
+angular.module(ApplicationConfiguration.applicationModuleName).run(function ($rootScope, $state, Authentication, $http) {
 
   // Check authentication before changing state
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
@@ -41,6 +41,13 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
   // Record previous state
   $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
     storePreviousState(fromState, fromParams);
+    if (toState.name == "sketch-comment") {
+      var data = {
+        sketchId: toParams
+      };
+      $http.put('/api/sketchpad/notification/readcomment', JSON.stringify(data));
+    }
+
   });
 
   // Store previous state

@@ -75,7 +75,7 @@ exports.collect = function(req, res) {
  * Read sketch's comments of the user, and reset the flag to false.
  */
 exports.readComment = function(req, res) {
-    var sketchId = req.body.sketchId;
+    var sketchId = req.body.sketchId.sketchId;
     var user = req.user;
     if(sketchId == null){
         return res.status(400).send({
