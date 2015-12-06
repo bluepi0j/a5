@@ -113,9 +113,7 @@ exports.readComment = function(req, res) {
             }else{
                 console.log("Other user visiting sketch");
             }
-
         });
-
     }
 }
 
@@ -198,25 +196,7 @@ exports.showAll = function (req, res) {
             });
         }
         var result =[];
-        //var temp;
-        //for (var i = 0; i < sketchs.length; i++){
-        //    console.log("!!!!!!!!index: " + 1);
-        //    temp = sketchs[i];
-        //    User.findById(sketchs[i].authorId).exec(function(err,user) {
-        //        if (err){
-        //            return res.status(400).send({
-        //                message: errorHandler.getErrorMessage(err)
-        //            });
-        //        }
-        //        //if(!user){
-        //        //    console.log("cannot find the user with id: " + sketchs[i].authorId);
-        //        //}else{
-        //        console.log("sketchs we got is at index: " + i + " - " + temp);
-        //            temp.author = user.displayName;
-        //            temp.authorImageURL = user.profileImageURL;
-        //            result.push(temp);
-        //    });
-        //}
+
         sketchs.forEach(function(entry, index, list){
             User.findById(entry.authorId).exec(function(err,author) {
                 if (err){
@@ -224,13 +204,13 @@ exports.showAll = function (req, res) {
                         message: errorHandler.getErrorMessage(err)
                     });
                 }
-                //if(!user){
-                //    console.log("cannot find the user with id: " + sketchs[i].authorId);
-                //}else{
-                //console.log("sketchs------" + entry);
                 entry.author = author.displayName;
                 entry.authorImageURL = author.profileImageURL;
-                result.push(entry);
+                if (entry.sticky == true){
+                    result.insert(0, entry);
+                }else{
+                    result.push(entry);
+                }
                 if (result.length == list.length){
                     res.json(result);
                 }
@@ -238,6 +218,42 @@ exports.showAll = function (req, res) {
 
         });
 
+    });
+};
+
+/**
+ * Make a sketch post sticky.
+ */
+exports.makeSticky = function (req, res) {
+    var sketch = req.body.sketch;
+    sketch.sticky = true;
+    sketch.save(function(err){
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        }
+        res.send({
+            message: 'Success'
+        });
+    });
+};
+
+/**
+ * Make a sketch post NOT sticky.
+ */
+exports.removeSticky = function (req, res) {
+    var sketch = req.body.sketch;
+    sketch.sticky = false;
+    sketch.save(function(err){
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        }
+        res.send({
+            message: 'Success'
+        });
     });
 };
 

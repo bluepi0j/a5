@@ -17,4 +17,7 @@ module.exports = function (app) {
     app.route('/api/sketchpad/notification/readcomment').put(sketchpad.readComment);
     app.route('/api/sketchpad/collection/collect').put(sketchpad.collect);
     app.route('/api/sketchpad/collection/showcollection').get(sketchpad.myCollection);
+    app.route('/api/sketchpad/sketch/sticky').put(sketchpad.makeSticky);
+    app.route('/api/sketchpad/sketch/unsticky').put(sketchpad.removeSticky);
+
 };
