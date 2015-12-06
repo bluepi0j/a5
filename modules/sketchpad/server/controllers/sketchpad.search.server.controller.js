@@ -39,7 +39,7 @@ exports.searchTitle = function(req,res){
                 entry.author = user.displayName;
                 entry.authorImageURL = user.profileImageURL;
                 result.push(entry);
-                if (index == list.length - 1){
+                if (result.length == list.length){
                     res.json(result);
                 }
             });
@@ -50,35 +50,72 @@ exports.searchTitle = function(req,res){
 }
 
 exports.searchUser = function(req,res){
-    User.find({ userName: req.params.userString }).sort('-created').exec(function(err, user) {
+    Sketchpad.find({ displayName: { $regex:  new RegExp('^'+req.params.userString) } }).sort('-created').exec(function(err, sketchs) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         }
-        else if(user == null){
+        else if(sketchs == null){
             return res.status(400).send({
                 message: 'No matches found'
             });
         }
-        else{        
-            var i = 0;
-            var list = [];
-            for (i = 0;i<user.length;i++){
-                Sketchpad.find({authorID:user.id},function(err,sketch){
-                    if(err){
-                        return res.status(400).send({
-                            message: errorHandler.getErrorMessage(err)
-                        });
-                    }
-                    list.push(sketch);
+        var result =[];
 
-                })
-            }
-        }
+        sketchs.forEach(function(entry, index, list){
+            User.findById(entry.authorId).exec(function(err,user) {
+                if (err){
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                }
+                //if(!user){
+                //    console.log("cannot find the user with id: " + sketchs[i].authorId);
+                //}else{
+                entry.author = user.displayName;
+                entry.authorImageURL = user.profileImageURL;
+                result.push(entry);
+                if (result.length == list.length){
+                    res.json(result);
+                }
+            });
 
-       
-        res.json(list);
+        });
 
     });
 }
+//exports.searchUser = function(req,res){
+//    User.find({ userName: req.params.userString }).sort('-created').exec(function(err, user) {
+//        if (err) {
+//            return res.status(400).send({
+//                message: errorHandler.getErrorMessage(err)
+//            });
+//        }
+//        else if(user == null){
+//            return res.status(400).send({
+//                message: 'No matches found'
+//            });
+//        }
+//        else{
+//            var i = 0;
+//            var list = [];
+//
+//            for (i = 0;i<user.length;i++){
+//                Sketchpad.find({authorID:user.id},function(err,sketch){
+//                    if(err){
+//                        return res.status(400).send({
+//                            message: errorHandler.getErrorMessage(err)
+//                        });
+//                    }
+//                    list.push(sketch);
+//
+//                })
+//            }
+//        }
+//
+//
+//        res.json(list);
+//
+//    });
+//}

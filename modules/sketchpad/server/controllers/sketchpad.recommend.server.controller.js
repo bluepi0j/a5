@@ -17,11 +17,34 @@ var path = require('path'),
 exports.learnInterest = function (req,res) {
     var user = req.user;
     var keyword = req.params.titleString;
+    console.log("keyword: " + keyword);
     if (user.interest.length < 5){
-        user.push(keyword);
+        user.interest.push(keyword);
+        user.save(function(err){
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.send({
+                    message: 'Success'
+                });
+            }
+        });
     }else{
         user.interest.slice(0,1);
-        user.push(keyword);
+        user.interest.push(keyword);
+        user.save(function(err){
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.send({
+                    message: 'Success'
+                });
+            }
+        });
     }
 }
 
