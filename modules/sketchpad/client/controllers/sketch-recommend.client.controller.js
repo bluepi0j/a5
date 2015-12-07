@@ -11,7 +11,7 @@ angular.module('sketch').controller('SketchRecommmendController', ['$scope', 'Au
         SketchRecommendService.getUserRecommend().success(function(res) {
             $scope.sketchList = res;
             if (res.length == 0) {
-                $scope.message = "No Recommended for you!";
+                $scope.message = "Sorry, no recommendation at this moment.";
             }
         })
 
