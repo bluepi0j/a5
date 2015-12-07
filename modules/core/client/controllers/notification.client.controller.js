@@ -20,15 +20,10 @@ angular.module('core').controller('NotificationController', ['$scope', '$state',
             return -1
         }
 
-        //$scope.pop = function(){
-        //  console.log("asdas");
-        //  toaster.pop('success', "title", "text");
-        //};
-        ////
-        //NotificationService.getNotification().success(function(res) {
-        //    console.log(res)
-        //})
 
+        /**
+         * this function call every two second to check notificaiton
+         */
         $scope.checkNoti = function() {
             if (Authentication.user) {
                 NotificationService.getNotification().success(function(res) {
@@ -70,7 +65,7 @@ angular.module('core').controller('NotificationController', ['$scope', '$state',
             }
         }
 
-        $interval($scope.checkNoti, 1000);
+        $interval($scope.checkNoti, 2000);
 
 
     }

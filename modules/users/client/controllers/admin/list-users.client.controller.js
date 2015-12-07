@@ -2,10 +2,7 @@
 
 angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'AdminService',
   function ($scope, $filter, AdminService) {
-    //Admin.query(function (data) {
-    //  $scope.users = data;
-    //  $scope.buildPager();
-    //});
+
     AdminService.getUserList().success(function(response){
         $scope.users = response;
         $scope.buildPager();

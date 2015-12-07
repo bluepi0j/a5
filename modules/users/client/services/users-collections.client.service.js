@@ -23,6 +23,3 @@ angular.module('users').service('UserCollectionsService', function ($http) {
 })
 
 
-
-//app.route('/api/sketchpad/collection/collect').put(sketchpad.collect);
-//app.route('/api/sketchpad/collection/showcollection').get(sketchpad.myCollection);

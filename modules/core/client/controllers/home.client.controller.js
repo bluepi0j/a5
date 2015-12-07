@@ -33,17 +33,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     }
 
 
-    //$scope.pagedItems = $scope.items;
-    //
-    //$scope.figureOutItemsToDisplay = function () {
-    //  $scope.filteredItems = $filter('filter')($scope.items, {
-    //    $: $scope.search
-    //  });
-    //  $scope.filterLength = $scope.filteredItems.length;
-    //  var begin = (($scope.currentPage - 1) * $scope.itemsPerPage);
-    //  var end = begin + $scope.itemsPerPage;
-    //  $scope.pagedItems = $scope.filteredItems.slice(begin, end);
-    //};
 
     $scope.goToSketchNew = function() {
       $state.go('sketch-create')

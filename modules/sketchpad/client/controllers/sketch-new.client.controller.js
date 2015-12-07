@@ -23,8 +23,7 @@ angular.module('sketch').controller('SketchNewController', ['$scope', 'Authentic
                     $state.reload();
                 }
             });
-            //$http.post('api/users/picture', JSON.stringify({dataURL:dataURL}));
-            //$scope.uploader.uploadAll();
+
         }
 
         $scope.undo = function () {

@@ -6,17 +6,13 @@ var config = require('../config'),
     mongoose = require('./mongoose'),
     express = require('./express'),
     chalk = require('chalk'),
-    seed = require('./seed');
-    cluster = require('cluster');
-    http = require('http');
+    seed = require('./seed'),
+    cluster = require('cluster'),
+    http = require('http'),
     numCPUs = require('os').cpus().length;
 
 function seedDB() {
     if (config.seedDB && config.seedDB.seed) {
-        //console.log(chalk.bold.red('When you first time run the program.'));
-        //console.log(chalk.bold.red('System will create one suparadmin for you'));
-        //console.log(chalk.bold.red('Password is generated for you'));
-        //console.log(chalk.bold.red('Please remember the password, or change it later'));
         seed.start();
     }
 }

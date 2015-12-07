@@ -1,5 +1,5 @@
 /**
- * Created by Haoan Wang on 15/11/18.
+ * All the path of our static file
  */
 
 module.exports = {

@@ -3,6 +3,9 @@
  */
 'use strict';
 
+/**
+ * set config of env
+ */
 module.exports = {
     app: {
         title: 'a5',

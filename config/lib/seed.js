@@ -1,6 +1,8 @@
 /**
- * Created by Haoan Wang on 15/11/18.
+ * Generate the superadmin and into db
  */
+
+
 var _ = require('lodash'),
     config = require('../config'),
     mongoose = require('mongoose'),

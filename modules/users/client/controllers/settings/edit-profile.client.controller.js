@@ -23,16 +23,7 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
       }).error(function(response) {
             $scope.error = response.data.message;
           })
-      //var user = new Users($scope.user);
-      //
-      //user.$update(function (response) {
-      //  $scope.$broadcast('show-errors-reset', 'userForm');
-      //
-      //  $scope.success = true;
-      //  Authentication.user = response;
-      //}, function (response) {
-      //  $scope.error = response.data.message;
-      //});
+
     };
   }
 ]);

@@ -1,40 +1,43 @@
 <section ng-controller="HomeController">
-    <!--<div class="row" style="height: 20px"></div>-->
     <toaster-container></toaster-container>
     <br>
+
     <div class="container">
         <div class="row">
-            <div class="col-md-2"> </div>
+            <div class="col-md-2"></div>
             <button type="button" class="btn btn-primary btn-sm col-md-2" ng-click="goToSketchNew()">Sketch New</button>
             <div class="col-md-4">
                 <input class="form-control" type="text" ng-model="search" placeholder="Search"/>
             </div>
-            <button  class="btn btn-primary btn-sm col-md-2" ng-click="searchSketch()">Search BY Title</button>
+            <button class="btn btn-primary btn-sm col-md-2" ng-click="searchSketch()">Search BY Title</button>
             <button class="btn btn-primary btn-sm col-md-2" ng-click="searchUser()">Search BY User</button>
 
         </div>
     </div>
 
     <br>
+
     <div>
 
         <ul class="flowGrid" id="demogrid">
             <li class="flowGridItem" ng-repeat="sketch in sketchList">
-                <div class="sticky" ng-if="sketch.sticky" ><strong>Pinned</strong></div>
+                <div class="sticky" ng-if="sketch.sticky"><strong>Pinned</strong></div>
                 <img ng-src="{{sketch.sketchImageURL}}" ng-click="goToComment(sketch._id)">
+
                 <div class="sketch-footer">
                     <img ng-src="{{sketch.authorImageURL}}" alt="{{sketch.author}}"
                          ng-click="goToUser(sketch.authorId)" class="sketch-profile-image"/>
                     <span>{{sketch.author}}</span>
-                <p class="sketch-title"><strong>Title: </strong>{{sketch.title}}
-                    <button class="btn btn-link pull-right" ng-show="authentication.user.roles.length >= 2"
-                            ng-click="stickyOrUnsticky(sketch)"  ng-if="!sketch.sticky">Sticky</button>
-                    <button class="btn btn-link pull-right" ng-show="authentication.user.roles.length >= 2"
-                            ng-click="stickyOrUnsticky(sketch)" ng-if="sketch.sticky">Unsticky</button></p>
 
-                    <!--<a class="btn" ng-click="cancelBack()">-->
-                        <!--<i class="glyphicon glyphicon-comment"></i>-->
-                    <!--</a>-->
+                    <p class="sketch-title"><strong>Title: </strong>{{sketch.title}}
+                        <button class="btn btn-link pull-right" ng-show="authentication.user.roles.length >= 2"
+                                ng-click="stickyOrUnsticky(sketch)" ng-if="!sketch.sticky">Sticky
+                        </button>
+                        <button class="btn btn-link pull-right" ng-show="authentication.user.roles.length >= 2"
+                                ng-click="stickyOrUnsticky(sketch)" ng-if="sketch.sticky">Unsticky
+                        </button>
+                    </p>
+
                 </div>
 
             </li>
