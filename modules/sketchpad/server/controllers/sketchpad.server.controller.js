@@ -57,11 +57,9 @@ exports.checkNewComment = function(req, res) {
  * Add a sketch to user's collection.
  */
 exports.collect = function(req, res) {
-    console.log('!!!hi!!!!' + req.user);
     var user = req.user;
     var sketchId = req.body.sketchId;
     if (user.collections.indexOf(sketchId) <0){
-        console.log('!!!hi!!!<<<<<<<!!!');
         user.collections.push (sketchId);
         user.save(function (err) {
             if (err) {
@@ -74,7 +72,6 @@ exports.collect = function(req, res) {
             });
         });
     }else{
-        console.log('!!!hi!!!!>>>??????');
         res.send({
             message: 'Already collected'
         });
@@ -137,14 +134,10 @@ exports.showById = function(req, res) {
                         message: errorHandler.getErrorMessage(err)
                     });
                 }
-                //if(!user){
-                //    console.log("cannot find the user with id: " + sketchs[i].authorId);
-                //}else{
-                //console.log("sketchs------" + entry);
+
                 entry.author =author.displayName;
                 entry.authorImageURL = author.profileImageURL;
                 result.push(entry);
-                //console.log("!!!!!!!!result: " + result);
                 if (result.length == list.length){
                     res.json(result);
                 }
@@ -278,7 +271,6 @@ exports.removeSticky = function (req, res) {
  */
 exports.save = function (req, res) {
     var user = req.user;
-    //console.log(req.body);
     var data = req.body.dataURL.replace(/^data:image\/\w+;base64,/, "");
     var buf = new Buffer(data, 'base64');
 

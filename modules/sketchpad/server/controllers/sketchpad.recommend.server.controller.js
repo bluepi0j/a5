@@ -17,7 +17,6 @@ var path = require('path'),
 exports.learnInterest = function (req,res) {
     var user = req.user;
     var keyword = req.params.titleString;
-    console.log("keyword: " + keyword);
     if (user.interest.length < 5){
         user.interest.push(keyword);
         user.save(function(err){

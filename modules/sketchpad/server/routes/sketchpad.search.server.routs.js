@@ -10,7 +10,6 @@ module.exports = function (app) {
     // Setting up the sketchpad api
     app.route('/api/search/title/:titleString').get(sketchpad.searchTitle);
     app.route('/api/search/user/:userString').get(sketchpad.searchUser);
-    //app.route('/api/sketchpad/readcomment').put(sketchpad.readcomment);
 
 };
 
