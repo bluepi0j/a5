@@ -61,7 +61,7 @@ exports.recommend = function (req, res) {
             }
             var result =[];
             if (sketchs.length == 0) {
-                res.json(result);
+                return res.json(result);
             } else {
                 sketchs.forEach(function(entry, index, list){
                     User.findById(entry.authorId).exec(function(err,user) {
@@ -104,12 +104,12 @@ exports.recommend = function (req, res) {
                         entry.authorImageURL = user.profileImageURL;
                         result.push(entry);
                         if (result.length == list.length || result.length == 6){
-                            res.json(result);
+                            return res.json(result);
                         }
                     });
                 });
             }else {
-                res.json(result);
+               return res.json(result);
             }
         });
     }
@@ -140,7 +140,7 @@ exports.recommendByRating = function (req, res) {
                     entry.authorImageURL = user.profileImageURL;
                     result.push(entry);
                     if (result.length == list.length || result.length == 4){
-                        res.json(result);
+                       return res.json(result);
                     }
                 });
 
@@ -176,7 +176,7 @@ exports.recommendByRatedTimes = function (req, res) {
                     entry.authorImageURL = user.profileImageURL;
                     result.push(entry);
                     if (result.length == list.length || result.length == 4){
-                        res.json(result);
+                       return res.json(result);
                     }
                 });
 
