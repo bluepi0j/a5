@@ -74,7 +74,7 @@ exports.recommend = function (req, res) {
                         entry.authorImageURL = user.profileImageURL;
                         result.push(entry);
                         if (result.length == list.length || result.length == 4){
-                            res.json(result);
+                            return res.json(result);
                         }
                     });
 
