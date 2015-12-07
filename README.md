@@ -1,10 +1,10 @@
 ##Overview
-Our Web Application designed as a social platform which allow users to draw, share and comment.
+Our Web Application designed as a social platform which allow users to draw, share and comment. For more general information please read our report.
 
 
 ##Getting Started
 	
-Run App:
+How to run this app:
 
 ~~~		
 npm install
@@ -16,8 +16,20 @@ node server.js
 
 ######User And Authentication
 	
-For your first time running the App, system will create an Super Admin for you; and it will provide a password for you, you can **remember the pasword** <u>(the password will only show once)</u>, or **change the password later** after Login 
+At the first time of running the App, system will generate a Super Admin automatically: username and password will be shown in terminal. 
+[Note: please **remember the pasword** <u>(the password will only show once)</u>, or **change the password later** after Login.]
 
+Open App on at (if running locally):
+
+~~~
+http://127.0.0.1:3000
+~~~ 
+
+View an example on hosting server at:
+
+~~~
+http://159.203.23.248
+~~~
 ##Folder Structure
 The folder structure follow the `MEAN.JS`, and we simplify it according to our demand.
 
@@ -54,5 +66,5 @@ All the User functionality of our application, e.g. signin, admin and superadmin
 
 Inculde alla the fontend library.
 
-##Functionality
+
 
