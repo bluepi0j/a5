@@ -53,36 +53,67 @@ exports.learnInterest = function (req,res) {
  */
 exports.recommend = function (req, res) {
     var user = req.user;
-    var randomnumber = Math.floor(Math.random()* user.interest.length);
-    var result = [];
-    var keyword = user.interest[randomnumber];
-    Sketchpad.find({ title: { $regex:  new RegExp('^'+keyword) } }).exec(function(err, sketchs) {
-        if (err) {
-            return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-            });
-        }
-        if (sketchs.length != 0){
-            sketchs.forEach(function(entry, index, list){
-                User.findById(entry.authorId).exec(function(err,user) {
-                    if (err){
-                        return res.status(400).send({
-                            message: errorHandler.getErrorMessage(err)
-                        });
-                    }
-                    entry.author = user.displayName;
-                    entry.authorImageURL = user.profileImageURL;
-                    result.push(entry);
-                    if (result.length == list.length || result.length == 6){
-                        res.json(result);
-                    }
+    if (user.interest.length == 0){
+        Sketchpad.find().sort('-avgRating').exec(function(err, sketchs) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
                 });
-            });
-        }else {
-            res.json(result);
-        }
-    });
+            }
+            var result =[];
+            if (sketchs.length == 0) {
+                res.json(result);
+            } else {
+                sketchs.forEach(function(entry, index, list){
+                    User.findById(entry.authorId).exec(function(err,user) {
+                        if (err){
+                            return res.status(400).send({
+                                message: errorHandler.getErrorMessage(err)
+                            });
+                        }
+                        entry.author = user.displayName;
+                        entry.authorImageURL = user.profileImageURL;
+                        result.push(entry);
+                        if (result.length == list.length || result.length == 4){
+                            res.json(result);
+                        }
+                    });
 
+                });
+            }
+
+        });
+    }else{
+        var randomnumber = Math.floor(Math.random()* user.interest.length);
+        var result = [];
+        var keyword = user.interest[randomnumber];
+        Sketchpad.find({ title: { $regex:  new RegExp('^'+keyword) } }).exec(function(err, sketchs) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            }
+            if (sketchs.length != 0){
+                sketchs.forEach(function(entry, index, list){
+                    User.findById(entry.authorId).exec(function(err,user) {
+                        if (err){
+                            return res.status(400).send({
+                                message: errorHandler.getErrorMessage(err)
+                            });
+                        }
+                        entry.author = user.displayName;
+                        entry.authorImageURL = user.profileImageURL;
+                        result.push(entry);
+                        if (result.length == list.length || result.length == 6){
+                            res.json(result);
+                        }
+                    });
+                });
+            }else {
+                res.json(result);
+            }
+        });
+    }
 };
 
 /**
