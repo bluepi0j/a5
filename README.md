@@ -64,7 +64,7 @@ All the User functionality of our application, e.g. signin, admin and superadmin
 
 ###public
 
-Inculde alla the fontend library.
+Inculde all the fontend library.
 
 
 
