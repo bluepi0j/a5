@@ -14,7 +14,7 @@ npm install
 node server.js
 ~~~
 
-#### User And Authentication
+## User And Authentication
 	
 At the first time of running the App, system will generate a Super Admin automatically: username and password will be shown in terminal. 
 [Note: please **remember the pasword** <u>(the password will only show once)</u>, or **change the password later** after Login.]
@@ -30,7 +30,7 @@ View an example on hosting server at:
 ~~~
 http://159.203.23.248
 ~~~
-##Folder Structure
+## Folder Structure
 The folder structure follow the `MEAN.JS`, and we simplify it according to our demand.
 
 ### config
